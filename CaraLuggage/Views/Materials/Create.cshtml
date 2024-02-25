@@ -1,0 +1,40 @@
+﻿@model CaraLuggage.Models.ChatLieu
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/AdminView.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Thêm mới chất liệu</h4>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.material_name)
+                                    @Html.EditorFor(model => model.material_name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.material_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-fill pull-right">Tạo mới</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

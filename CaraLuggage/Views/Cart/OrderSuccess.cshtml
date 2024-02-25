@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "OrderSuccess";
+    Layout = "~/Views/Shared/UserView.cshtml";
+}
+
+<section id="page-header" class="page-header2">
+    <h2>#bandathanhtoanthanhcong</h2>
+    <p>Chúng tôi rất cảm ơn bạn đã sử dụng dịch vụ của chúng mình!</p>
+</section>
+
+<section class="section-p1" id="order">
+    <div>
+        <img src="img/check.png" alt="">
+    </div>
+    <div id="order-text">
+        <h2>Thank you for ordering</h2>
+        <p>Sản phẩm của bạn sẽ được duyệt và vận chuyển trong vòng 2 - 3 ngày tới!</p>
+    </div>
+    <div id="order-btn">
+        <button class="normal" id="cs" onclick="window.location.href = '@Url.Action("Shop", "Home")';">Continue Shopping</button>
+    </div>
+</section>
+

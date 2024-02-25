@@ -1,0 +1,99 @@
+﻿@model List<CaraLuggage.Models.Cart>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/UserView.cshtml";
+}
+
+<section id="page-header" class="about-header">
+    <h2>#giohangcucchill</h2>
+    <p>Nơi bạn lưu trữ những mặt hàng thú vị!</p>
+</section>
+
+<section id="cart" class="section-p1">
+    <table width="100%">
+        <thead>
+            <tr>
+                <td>Remove</td>
+                <td>Image</td>
+                <td>Product</td>
+                <td>Price</td>
+                <td>Quantity</td>
+                <td>Subtotal</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a href="@Url.Action("RemoveFromCart", "Cart", new { productId = item.productID })"><i class="fa-solid fa-circle-xmark"></i></a></td>
+                    <td><img src="@item.productImage" alt=""></td>
+                    @{
+                        double price = item.productPrice;
+                    }
+                    <td>
+                        <a href="@Url.Action("Index", "ProductDetail", new { id=item.productID })" style="text-decoration: none; color: black;">@item.productName</a>
+                    </td>
+                    <td>@price.ToString("#,##0 VND")</td>
+                    @{
+                        int quantity = item.productQuantity;
+                        double subprice = item.productPrice;
+                        double total = quantity * subprice;
+                    }
+                    <td>
+                        <input min="1" max="" type="number" value="@item.productQuantity" onchange="updateSubTotal(this, @item.productPrice)" disabled>
+                    </td>
+                    <td id="total-@item.productID">@total.ToString("#,##0 VND")</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <div style="margin-top: 20px;">
+        <a href="@Url.Action("Index","Home")" style=" text-decoration: none; font-size: 20px; color: #0cc5b9 "><i class="fa-solid fa-arrow-rotate-left"></i><span style="padding: 5px;">Trở về trang mua hàng</span></a>
+    </div>
+</section>
+
+
+
+<section id="cart-add" class="section-p1">
+    <div id="coupon">
+        <h3>Apply Coupon</h3>
+        <div>
+            <input type="text" placeholder="Enter Your Coupon">
+            <button class="normal">Apply</button>
+        </div>
+    </div>
+
+    <div id="subtotal">
+        <h3>Cart Totals</h3>
+        <table>
+            <tr>
+                @{
+                    double subtotal = 0;
+                    if (ViewBag.Total != null)
+                    {
+                        subtotal = ViewBag.Total;
+                    }
+                }
+                <td><strong>Total</strong></td>
+                <td id="cartTotal"><strong>@subtotal.ToString("#,##0 VND")</strong></td>
+            </tr>
+        </table>
+        <a href="@Url.Action("PayForProductView", "Cart")" class="normal" style="margin: 10px 0; padding: 15px; border-radius: 5px;text-align:center; text-decoration: none; background-color: #0cc5b9; color: white;">Thanh toán</a>
+        <a href="@Url.Action("TotalCart", "Cart")" class="normal" style="text-align:right; margin: 10px 0; padding: 15px; border-radius: 5px;text-align:center; text-decoration: none; background-color: #0cc5b9; color: white;">Cập nhật giỏ hàng</a>
+    </div>
+</section>
+
+<script>
+    function updateSubTotal(input, price) {
+        var quantity = input.value;
+        var total = quantity * price;
+        var productId = input.closest('tr').querySelector('td:nth-child(6)').id;
+
+        // Chuyển định dạng total thành "100,000VND"
+        var formattedTotal = total.toLocaleString('en-US') + ' VND';
+
+        document.getElementById(productId).innerText = formattedTotal;
+    }
+
+</script>

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<CaraLuggage.Models.NhanVien>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminView.cshtml";
+}
+<style>
+    .crud-btn {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        margin: 2px;
+    }
+
+        .crud-btn i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+</style>
+
+@{ 
+    int count = 0;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card strpied-tabled-with-hover">
+            <div class="card-header ">
+                <h4 class="card-title">Bảng Quản lý Nhân viên</h4>
+                @*<p class="card-category">Here is a subtitle for this table</p>*@
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.staff_name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.staff_phone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.staff_address)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.staff_account)
+                            </th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td>@count</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.staff_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.staff_phone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.staff_address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.staff_account)
+                                </td>
+                                <td style="height: 100%; align-items: center;">
+                                    <a href="@Url.Action("Edit", new { id=item.staff_id })" class="crud-btn btn-info">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id=item.staff_id })" class="crud-btn btn-danger">
+                                        <i class="fa-solid fa-x">
+                                        </i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer clearfix">
+                <a href="@Url.Action("Create", "Staffs")" class="btn btn-success float-left">Thêm nhân viên mới</a>
+            </div>
+        </div>
+    </div>
+</div>

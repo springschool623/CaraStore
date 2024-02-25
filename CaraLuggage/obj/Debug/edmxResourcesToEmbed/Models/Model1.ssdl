@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CaraLuggageDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ChatLieu">
+    <Key>
+      <PropertyRef Name="material_id" />
+    </Key>
+    <Property Name="material_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="material_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ChiTietDonHang">
+    <Key>
+      <PropertyRef Name="orderdetail_id" />
+    </Key>
+    <Property Name="orderdetail_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="od_product" Type="varchar" MaxLength="15" />
+    <Property Name="od_quantity" Type="int" />
+    <Property Name="od_price" Type="float" />
+    <Property Name="od_orderno" Type="int" />
+  </EntityType>
+  <EntityType Name="DonHang">
+    <Key>
+      <PropertyRef Name="order_no" />
+    </Key>
+    <Property Name="order_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="order_code" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="order_createAt" Type="datetime" />
+    <Property Name="order_customer" Type="varchar" MaxLength="15" />
+    <Property Name="order_staff" Type="varchar" MaxLength="15" />
+    <Property Name="order_status" Type="nvarchar" MaxLength="20" />
+    <Property Name="order_payment" Type="int" />
+    <Property Name="order_totalPrice" Type="float" />
+  </EntityType>
+  <EntityType Name="KhachHang">
+    <Key>
+      <PropertyRef Name="customer_id" />
+    </Key>
+    <Property Name="customer_id" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="customer_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="customer_phone" Type="char" MaxLength="12" />
+    <Property Name="customer_address" Type="nvarchar" MaxLength="50" />
+    <Property Name="customer_account" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="LoaiSanPham">
+    <Key>
+      <PropertyRef Name="category_id" />
+    </Key>
+    <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="category_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="category_createAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="MauSac">
+    <Key>
+      <PropertyRef Name="color_id" />
+    </Key>
+    <Property Name="color_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="color_name" Type="nvarchar" MaxLength="12" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NhanVien">
+    <Key>
+      <PropertyRef Name="staff_id" />
+    </Key>
+    <Property Name="staff_id" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="staff_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="staff_phone" Type="char" MaxLength="12" />
+    <Property Name="staff_address" Type="nvarchar" MaxLength="50" />
+    <Property Name="staff_account" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="PhuongThucThanhToan">
+    <Key>
+      <PropertyRef Name="payment_no" />
+    </Key>
+    <Property Name="payment_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="payment_name" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="SanPham">
+    <Key>
+      <PropertyRef Name="product_id" />
+    </Key>
+    <Property Name="product_id" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="product_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="product_color" Type="int" />
+    <Property Name="product_origin" Type="nvarchar" MaxLength="50" />
+    <Property Name="product_size" Type="char" MaxLength="10" />
+    <Property Name="product_price" Type="float" />
+    <Property Name="product_image" Type="nvarchar(max)" />
+    <Property Name="product_material" Type="int" />
+    <Property Name="product_quantity" Type="int" Nullable="false" />
+    <Property Name="product_createAt" Type="datetime" />
+    <Property Name="product_status" Type="bit" />
+    <Property Name="product_category" Type="int" />
+    <Property Name="product_brand" Type="int" />
+  </EntityType>
+  <EntityType Name="TaiKhoan">
+    <Key>
+      <PropertyRef Name="account_name" />
+    </Key>
+    <Property Name="account_name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="account_password" Type="varchar" MaxLength="20" />
+    <Property Name="account_createAt" Type="datetime" />
+    <Property Name="account_status" Type="bit" />
+  </EntityType>
+  <EntityType Name="ThuongHieu">
+    <Key>
+      <PropertyRef Name="brand_id" />
+    </Key>
+    <Property Name="brand_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="brand_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="brand_createAt" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__ChiTietDo__od_or__5535A963">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="0..1" />
+    <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="order_no" />
+      </Principal>
+      <Dependent Role="ChiTietDonHang">
+        <PropertyRef Name="od_orderno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ChiTietDo__od_pr__5441852A">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+    <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="ChiTietDonHang">
+        <PropertyRef Name="od_product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DonHang__order_c__5165187F">
+    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KhachHang">
+        <PropertyRef Name="customer_id" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="order_customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DonHang__order_p__534D60F1">
+    <End Role="PhuongThucThanhToan" Type="Self.PhuongThucThanhToan" Multiplicity="0..1" />
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhuongThucThanhToan">
+        <PropertyRef Name="payment_no" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="order_payment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DonHang__order_s__52593CB8">
+    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="staff_id" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="order_staff" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__KhachHang__custo__5070F446">
+    <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaiKhoan">
+        <PropertyRef Name="account_name" />
+      </Principal>
+      <Dependent Role="KhachHang">
+        <PropertyRef Name="customer_account" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__NhanVien__staff___4F7CD00D">
+    <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaiKhoan">
+        <PropertyRef Name="account_name" />
+      </Principal>
+      <Dependent Role="NhanVien">
+        <PropertyRef Name="staff_account" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SanPham__product__4BAC3F29">
+    <End Role="LoaiSanPham" Type="Self.LoaiSanPham" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiSanPham">
+        <PropertyRef Name="category_id" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="product_category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SanPham__product__4CA06362">
+    <End Role="ThuongHieu" Type="Self.ThuongHieu" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThuongHieu">
+        <PropertyRef Name="brand_id" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="product_brand" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SanPham__product__4D94879B">
+    <End Role="MauSac" Type="Self.MauSac" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MauSac">
+        <PropertyRef Name="color_id" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="product_color" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SanPham__product__4E88ABD4">
+    <End Role="ChatLieu" Type="Self.ChatLieu" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChatLieu">
+        <PropertyRef Name="material_id" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="product_material" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CaraLuggageDBModelStoreContainer">
+    <EntitySet Name="ChatLieu" EntityType="Self.ChatLieu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoaiSanPham" EntityType="Self.LoaiSanPham" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MauSac" EntityType="Self.MauSac" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PhuongThucThanhToan" EntityType="Self.PhuongThucThanhToan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThuongHieu" EntityType="Self.ThuongHieu" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ChiTietDo__od_or__5535A963" Association="Self.FK__ChiTietDo__od_or__5535A963">
+      <End Role="DonHang" EntitySet="DonHang" />
+      <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ChiTietDo__od_pr__5441852A" Association="Self.FK__ChiTietDo__od_pr__5441852A">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DonHang__order_c__5165187F" Association="Self.FK__DonHang__order_c__5165187F">
+      <End Role="KhachHang" EntitySet="KhachHang" />
+      <End Role="DonHang" EntitySet="DonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DonHang__order_p__534D60F1" Association="Self.FK__DonHang__order_p__534D60F1">
+      <End Role="PhuongThucThanhToan" EntitySet="PhuongThucThanhToan" />
+      <End Role="DonHang" EntitySet="DonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DonHang__order_s__52593CB8" Association="Self.FK__DonHang__order_s__52593CB8">
+      <End Role="NhanVien" EntitySet="NhanVien" />
+      <End Role="DonHang" EntitySet="DonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__KhachHang__custo__5070F446" Association="Self.FK__KhachHang__custo__5070F446">
+      <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+      <End Role="KhachHang" EntitySet="KhachHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK__NhanVien__staff___4F7CD00D" Association="Self.FK__NhanVien__staff___4F7CD00D">
+      <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+      <End Role="NhanVien" EntitySet="NhanVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SanPham__product__4BAC3F29" Association="Self.FK__SanPham__product__4BAC3F29">
+      <End Role="LoaiSanPham" EntitySet="LoaiSanPham" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SanPham__product__4CA06362" Association="Self.FK__SanPham__product__4CA06362">
+      <End Role="ThuongHieu" EntitySet="ThuongHieu" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SanPham__product__4D94879B" Association="Self.FK__SanPham__product__4D94879B">
+      <End Role="MauSac" EntitySet="MauSac" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SanPham__product__4E88ABD4" Association="Self.FK__SanPham__product__4E88ABD4">
+      <End Role="ChatLieu" EntitySet="ChatLieu" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,112 @@
+﻿@model IEnumerable<CaraLuggage.Models.DonHang>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminView.cshtml";
+}
+<style>
+    .crud-btn {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        margin: 2px;
+    }
+
+        .crud-btn i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card strpied-tabled-with-hover">
+            <div class="card-header ">
+                <h4 class="card-title">Bảng Quản lý Đơn hàng</h4>
+                @*<p class="card-category">Here is a subtitle for this table</p>*@
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.order_no)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.order_code)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NhanVien.staff_id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.KhachHang.customer_id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.order_totalPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.order_createAt)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.order_payment)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.order_status)
+                            </th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.order_no)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.order_code)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NhanVien.staff_id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.KhachHang.customer_id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.order_totalPrice)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.order_createAt)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.order_payment)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.order_status)
+                                </td>
+                                <td style="height: 100%; align-items: center;">
+                                    <a href="@Url.Action("Edit", new { id=item.order_no })" class="crud-btn btn-info">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id=item.order_no })" class="crud-btn btn-danger">
+                                        <i class="fa-solid fa-x">
+                                        </i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer clearfix">
+                <a href="@Url.Action("Create", "Categories")" class="btn btn-success float-left">Thêm loại sản phẩm mới</a>
+            </div>
+        </div>
+    </div>
+</div>

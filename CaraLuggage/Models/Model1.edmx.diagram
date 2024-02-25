@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="60412243e34044a4ba42b2b3d87eb0db" Name="Diagram1">
+        <EntityTypeShape EntityType="CaraLuggageDBModel.ChatLieu" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CaraLuggageDBModel.ChiTietDonHang" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CaraLuggageDBModel.DonHang" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CaraLuggageDBModel.KhachHang" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CaraLuggageDBModel.LoaiSanPham" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CaraLuggageDBModel.MauSac" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CaraLuggageDBModel.NhanVien" Width="1.5" PointX="0.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CaraLuggageDBModel.PhuongThucThanhToan" Width="1.5" PointX="0.75" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CaraLuggageDBModel.SanPham" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CaraLuggageDBModel.TaiKhoan" Width="1.5" PointX="1.5" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CaraLuggageDBModel.ThuongHieu" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__SanPham__product__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__ChiTietDo__od_or__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__ChiTietDo__od_pr__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__DonHang__order_c__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__DonHang__order_p__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__DonHang__order_s__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__KhachHang__custo__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__SanPham__product__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__SanPham__product__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__NhanVien__staff___4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="CaraLuggageDBModel.FK__SanPham__product__4CA06362" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,152 @@
+﻿@model IEnumerable<CaraLuggage.Models.SanPham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminView.cshtml";
+}
+<style>
+    .crud-btn {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        margin: 2px;
+    }
+
+        .crud-btn i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+    td {
+        width: 200px;
+        min-height: 250px;
+        text-align: left;
+    }
+</style>
+
+@{
+    int count = 0;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card strpied-tabled-with-hover">
+            <div class="card-header ">
+                <h4 class="card-title">Bảng Quản lý Sản phẩm</h4>
+                @*<p class="card-category">Here is a subtitle for this table</p>*@
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                STT
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.product_name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.product_origin)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.product_size)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.product_price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.product_image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.product_quantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.product_status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ChatLieu.material_name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LoaiSanPham.category_name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MauSac.color_name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ThuongHieu.brand_name)
+                            </th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td>@count</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.product_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.product_origin)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.product_size)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.product_price)
+                                </td>
+                                <td>
+                                    <img src="@Html.DisplayFor(modelItem => item.product_image)" width="200" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.product_quantity)
+                                </td>
+                                <td>
+                                    @if (item.product_quantity == 0)
+                                    {
+                                        <span style="color: red">Hết hàng</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span style="color: green">Còn hàng</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChatLieu.material_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LoaiSanPham.category_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MauSac.color_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ThuongHieu.brand_name)
+                                </td>
+                                <td style="height: 100%; align-items: center;">
+                                    <a href="@Url.Action("Edit", new { id=item.product_id })" class="crud-btn btn-info">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id=item.product_id })" class="crud-btn btn-danger">
+                                        <i class="fa-solid fa-x">
+                                        </i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer clearfix">
+                <a href="@Url.Action("Create", "Products")" class="btn btn-success float-left">Thêm sản phẩm mới</a>
+            </div>
+        </div>
+    </div>
+</div>

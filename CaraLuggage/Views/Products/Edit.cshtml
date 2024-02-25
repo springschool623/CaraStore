@@ -1,0 +1,147 @@
+﻿@model CaraLuggage.Models.SanPham
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/AdminView.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Chỉnh sửa sản phẩm</h4>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.product_id)
+
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-5 pr-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.product_name, "Tên sản phẩm")
+                                    @Html.EditorFor(model => model.product_name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.product_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-3 px-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.product_category, "Loại sản phẩm")
+                                    @Html.DropDownList("product_category", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.product_category, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4 pl-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.product_brand, "Thương hiệu")
+                                    @Html.DropDownList("product_brand", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.product_brand, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 pr-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.product_size, "Kích thước")
+                                    @Html.EditorFor(model => model.product_size, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.product_size, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-5 pl-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.product_material, "Chất liệu")
+                                    @Html.DropDownList("product_material", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.product_material, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4 pl-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.product_color, "Màu sắc")
+                                    @Html.DropDownList("product_color", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.product_color, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 pr-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.product_origin, "Xuất xứ")
+                                    @Html.EditorFor(model => model.product_origin, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.product_origin, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-2 pl-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.product_quantity, "Số lượng")
+                                    @Html.EditorFor(model => model.product_quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.product_quantity, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 pl-1">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.product_price, "Giá trị")
+                                    @Html.EditorFor(model => model.product_price, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.product_price, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.product_price, "Hình ảnh")
+                                    <br />
+                                    <img src="@Html.DisplayFor(model => model.product_image)" width="200" />
+                                    <br />
+
+                                    @Html.EditorFor(model => model.product_image, new { htmlAttributes = new { @type = "file" } })
+                                    @Html.ValidationMessageFor(model => model.product_image, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-info btn-fill pull-right">Lưu</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-4">
+            <div class="card card-user">
+                <div class="card-image">
+                    <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="...">
+                </div>
+                <div class="card-body">
+                    <div class="author">
+                        <a href="#">
+                            <img class="avatar border-gray" src="../assets/img/faces/face-3.jpg" alt="...">
+                            <h5 class="title">Mike Andrew</h5>
+                        </a>
+                        <p class="description">
+                            michael24
+                        </p>
+                    </div>
+                    <p class="description text-center">
+                        "Lamborghini Mercy
+                        <br> Your chick she so thirsty
+                        <br> I'm in that two seat Lambo"
+                    </p>
+                </div>
+                <hr>
+                <div class="button-container mr-auto ml-auto">
+                    <button href="#" class="btn btn-simple btn-link btn-icon">
+                        <i class="fa fa-facebook-square"></i>
+                    </button>
+                    <button href="#" class="btn btn-simple btn-link btn-icon">
+                        <i class="fa fa-twitter"></i>
+                    </button>
+                    <button href="#" class="btn btn-simple btn-link btn-icon">
+                        <i class="fa fa-google-plus-square"></i>
+                    </button>
+                </div>
+            </div>
+        </div>*@
+    </div>
+}

@@ -1,0 +1,97 @@
+﻿@model CaraLuggage.Models.SanPham
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/UserView.cshtml";
+}
+
+@{
+    double price = (double)@Model.product_price;
+}
+
+<section id="prodetails" class="section-p1">
+    <div class="single-pro-img">
+        <img src="~/Content/assets/img/products/f1.jpg" width="100%" id="MainImg" alt="">
+
+        <div class="small-img-group">
+            <div class="small-img-col">
+                <img src="~/Content/assets/img/products/f1.jpg" width="100%" class="small-img" alt="">
+            </div>
+            <div class="small-img-col">
+                <img src="~/Content/assets/img/products/f2.jpg" width="100%" class="small-img" alt="">
+            </div>
+            <div class="small-img-col">
+                <img src="~/Content/assets/img/products/f3.jpg" width="100%" class="small-img" alt="">
+            </div>
+            <div class="small-img-col">
+                <img src="~/Content/assets/img/products/f4.jpg" width="100%" class="small-img" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="single-pro-details">
+        <h6>Home / @Model.LoaiSanPham.category_name</h6>
+        <h4>@Model.product_name</h4>
+        <h2>@price.ToString("#,##0 VND")</h2>
+        <select>
+            <option>Select Size</option>
+            <option>XL</option>
+            <option>XXL</option>
+            <option>Small</option>
+            <option>Large</option>
+        </select>
+        <input name="buy-quantity" type="number" value="1">
+        <a href="@Url.Action("AddToCart", "Cart", new { productId = @Model.product_id })" class="normal" style="display:block;width: 150px; margin: 10px 0; padding: 15px; border-radius: 5px;text-align:center; text-decoration: none; background-color: #0cc5b9; color: white;">Add To Cart</a>
+    </div>
+</section>
+
+<section class="section-p1" id="products1">
+    <h2>Related Products</h2>
+    <p>Summer Collection New Morden Design</p>
+    <div class="pro-container">
+        @foreach (var product in ViewBag.relatedProduct)
+        {
+            if (product.product_id != Model.product_id)
+            {
+                <div class="pro">
+                    <a href="@Url.Action("","ProductDetail", new { id=product.product_id })">
+                        <img src="~/Content/assets/img/products/f1.jpg" alt="">
+                        <div class="des">
+                            <span>@ViewBag.BrandNames[product.product_brand]</span>
+                            <h5>@product.product_name</h5>
+                            <div class="star">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h4>@product.product_price</h4>
+                        </div>
+                        <a href=""><i class="fa-solid fa-cart-shopping cart"></i></a>
+                    </a>
+                </div>
+
+            }
+
+        }
+    </div>
+</section>
+
+<script>
+    var MainImg = document.getElementById('MainImg');
+    var smallimg = document.getElementsByClassName('small-img');
+
+    smallimg[0].onclick = function () {
+        MainImg.src = smallimg[0].src;
+    }
+    smallimg[1].onclick = function () {
+        MainImg.src = smallimg[1].src;
+    }
+    smallimg[2].onclick = function () {
+        MainImg.src = smallimg[2].src;
+    }
+    smallimg[3].onclick = function () {
+        MainImg.src = smallimg[3].src;
+    }
+</script>
+
