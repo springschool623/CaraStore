@@ -36,7 +36,6 @@ namespace QuanLyShopBanVali.Controllers
             return View();
         }
 
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -58,6 +57,22 @@ namespace QuanLyShopBanVali.Controllers
 
         public ActionResult Shop()
         {
+            // Lấy danh sách sản phẩm và thương hiệu
+            var products = db.SanPhams.ToList();
+            var brands = db.ThuongHieux.ToList();
+
+            // Tạo một Dictionary để lưu trữ brand_name tương ứng với mỗi brand_id
+            Dictionary<int, string> brandNames = new Dictionary<int, string>();
+
+            // Duyệt qua danh sách thương hiệu và thêm vào Dictionary
+            foreach (var brand in brands)
+            {
+                brandNames.Add(brand.brand_id, brand.brand_name);
+            }
+
+            // Thêm dữ liệu vào ViewBag
+            ViewBag.Products = products;
+            ViewBag.BrandNames = brandNames;
             return View();
         }
 
@@ -115,5 +130,23 @@ namespace QuanLyShopBanVali.Controllers
             return View(khachHang);
         }
 
+        public ActionResult UserOrderDetail(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DonHang donHang = db.DonHangs.Find(id);
+            if (donHang == null)
+            {
+                return HttpNotFound();
+            }
+
+            var chiTietDonHang = db.ChiTietDonHangs.Where(d => d.od_orderno == id).ToList();
+
+            ViewBag.OrderDetail = chiTietDonHang;
+
+            return View(donHang);
+        }
     }
 }

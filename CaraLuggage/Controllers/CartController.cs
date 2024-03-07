@@ -156,12 +156,20 @@ namespace QuanLyShopBanVali.Controllers
             return View();
         }
 
-        public ActionResult PayConfirm()
+        [HttpPost]
+        public ActionResult PayConfirm([Bind(Include = "order_no,order_code,order_createAt,order_staff,order_status,order_payment,order_totalPrice")] DonHang donHang,
+            [Bind(Include = "orderdetail_id,od_product,od_quantity,od_price,od_orderno")] ChiTietDonHang chiTietDonHang)
         {
             List<Cart> cartItems = Session["CartItems"] as List<Cart> ?? new List<Cart>();
 
-            DonHang donHang = db.DonHangs.FirstOrDefault();
+            string accessUser = Session["UserName"] as string;
 
+            if (accessUser == null)
+            {
+                return RedirectToAction("LoginSection", "LoginRegister");
+            }
+            KhachHang khachHang = db.KhachHangs.FirstOrDefault(c => c.customer_account == accessUser);
+            donHang.order_customer = khachHang.customer_id;
             string newOrderCode;
 
             do
@@ -175,14 +183,28 @@ namespace QuanLyShopBanVali.Controllers
             donHang.order_createAt = DateTime.Now;
             donHang.order_status = "Chưa xác nhận";
 
+
             donHang.order_totalPrice = cartItems.Sum(item => item.productPrice * item.productQuantity);
 
             db.DonHangs.Add(donHang);
             db.SaveChanges();
 
+            foreach(var cartItem in cartItems)
+            {
+                SanPham sanPham = db.SanPhams.FirstOrDefault(p => p.product_id == cartItem.productID);
+
+                chiTietDonHang.od_product = cartItem.productID;
+                chiTietDonHang.od_quantity = cartItem.productQuantity;
+                chiTietDonHang.od_price = sanPham.product_price * cartItem.productQuantity;
+                chiTietDonHang.od_orderno = donHang.order_no;
+
+                db.ChiTietDonHangs.Add(chiTietDonHang);
+                db.SaveChanges();
+            }
+
             Session["CartItems"] = null;
 
-            return View();
+            return RedirectToAction("OrderSuccess");
         }
 
         public static string GenerateRandomOrderCode()
@@ -200,7 +222,6 @@ namespace QuanLyShopBanVali.Controllers
                 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7',
                 '8', '9'
             };
-
 
             // Tạo một chuỗi rỗng
             string code = "";

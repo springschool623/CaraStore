@@ -42,46 +42,50 @@
                     <td id="total-@item.productID">@total.ToString("#,##0 VND")</td>
                 </tr>
             }
-            </tbody>
+        </tbody>
     </table>
 </section>
-
-<section id="proceed" class="section-p1">
-    <div class="tong-thanh-toan">
-        <div id="subtotal-thanhtoan">
-            <h3>Cart Totals</h3>
-            <br />
-            <table>
-                <tr>
-                    @{
-                        double subtotal = 0;
-                        if (ViewBag.Total != null)
-                        {
-                            subtotal = ViewBag.Total;
+@using (Html.BeginForm("PayConfirm", "Cart", FormMethod.Post))
+{
+    <section id="proceed" class="section-p1">
+        <div class="tong-thanh-toan">
+            <div id="subtotal-thanhtoan">
+                <h3>Cart Totals</h3>
+                <br />
+                <table>
+                    <tr>
+                        @{
+                            double subtotal = 0;
+                            if (ViewBag.Total != null)
+                            {
+                                subtotal = ViewBag.Total;
+                            }
                         }
-                    }
-                    <td><strong>Total</strong></td>
-                    <td><strong>@subtotal.ToString("#,##0 VND")</strong></td>
-                </tr>
-            </table>
+                        <td><strong>Total</strong></td>
+                        <td><strong>@subtotal.ToString("#,##0 VND")</strong></td>
+                    </tr>
+                </table>
+            </div>
+
+            <input type="submit" class="normal" style="margin: 10px 0; padding: 18px 32px; border-radius: 5px;text-align:center; text-decoration: none; font-size:25px; background-color: #0cc5b9; color: white;" value="Thanh toán"/>
         </div>
 
-        <a href="@Url.Action("PayConfirm", "Cart")" class="normal" style="margin: 10px 0; padding: 18px 32px; border-radius: 5px;text-align:center; text-decoration: none; font-size:25px; background-color: #0cc5b9; color: white;">Thanh toán</a>
-    </div>
+        <div id="payment">
+            <h3>Phương thức thanh toán</h3>
+            <div class="radio-title-group">
+                @foreach (var payment in ViewBag.Payment)
+                {
+                    <div class="input-container">
+                        <input type="radio" name="order_payment" id="order_payment" class="cus-btn" checked="checked" value="@payment.payment_no">
 
-    <div id="payment">
-        <h3>Phương thức thanh toán</h3>
-        <div class="radio-title-group">
-            @foreach (var payment in ViewBag.Payment)
-            {
-                <div class="input-container">
-                    <input type="radio" name="radio" id="cod" class="cus-btn" checked="checked">
-                    <div class="radio-title">
-                        <img src="img/pay/cash-on-delivery.png" alt="">
-                        <label for="cod">@payment.payment_name</label>
+                        <div class="radio-title">
+                            <img src="img/pay/cash-on-delivery.png" alt="">
+                            <label for="cod">@payment.payment_name</label>
+                        </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+}
+

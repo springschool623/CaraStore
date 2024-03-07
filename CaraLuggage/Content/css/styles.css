@@ -1308,8 +1308,7 @@ input:checked + .radio-title label {
 
 .chitiet-tong {
     display: flex;
-    justify-content: space-between;
-    padding-bottom: 30px;
+    flex-direction: column;
 }
 
 .chitiet-sp h6 {
@@ -1319,7 +1318,8 @@ input:checked + .radio-title label {
 
 .chitiet-sp {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+    margin: 15px 0;
 }
 
     .chitiet-sp .soluong {
