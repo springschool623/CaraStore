@@ -1,0 +1,93 @@
+﻿@model CaraLuggage.Models.DonHang
+
+@{
+    ViewBag.Title = "UserOrderDetail";
+    Layout = "~/Views/Shared/UserView.cshtml";
+}
+
+<section id="page-header" class="about-header10">
+    <h2>#chitiethoadoncuaban</h2>
+    <p>Nơi bạn có thể kiểm tra lại thông tin hóa đơn của mình!</p>
+</section>
+
+<section class="section-p1" id="order1">
+    <h3>Thông Tin Đơn Hàng</h3>
+
+    <div class="order-details">
+        <div>
+            <table class="table1">
+                <thead>
+                    <tr class="border1" id="theaddetails">
+                        <th>Mã đơn:</th>
+                        <th>Ngày lập:</th>
+                        <th>Tổng tiền:</th>
+                        <th>Hình thức thanh toán:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border1" id="tbodydetails">
+                        <td>@Model.order_code</td>
+                        <td>@Model.order_createAt</td>
+                        <td>@Model.order_totalPrice</td>
+                        <td>@Model.PhuongThucThanhToan.payment_name</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="chitiet">
+                <h4>Chi tiết đơn hàng</h4>
+                <div class="chitiet-tong">
+                    @foreach (var detail in ViewBag.OrderDetail)
+                    {
+                        <div class="chitiet-sp">
+                            <div style="flex:5">
+                                <h6>@detail.SanPham.product_name</h6>
+                            </div>
+                            <span style="flex:3" class="soluong">x @detail.od_quantity</span>
+                            <span style="flex:2; text-align: right;">@detail.od_price</span>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="thanhtoan-hoadon">
+                <ul>
+                    <li>
+                        <span>Thanh Toán:</span>
+                        <span>@Model.order_totalPrice</span>
+                    </li>
+                    <li>
+                        <span>Vận Chuyển:</span>
+                        <span>
+                            <span class="trangthai">Chờ duyệt</span>
+                            <span class="trangthai">Chờ đóng gói</span>
+                        </span>
+                    </li>
+                    <li>
+                        <span>Hình thức thanh toán:</span>
+                        <span>Cổng thanh toán MoMo</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tongtien-hoadon">
+                <div>
+                    <span>Tổng Tiền</span>
+                    <span>108.000đ</span>
+                </div>
+            </div>
+
+            <div class="diachi-hoadon">
+                <h4>Địa chỉ nhận hàng</h4>
+                <h6>220 Xô Viết Nghệ Tĩnh</h6>
+                <div>
+                    <span>Chú ý: Sau khi khách hàng đã nhận hàng vui lòng xác nhận đã nhận hàng.</span>
+                    <span>Hệ thống sẽ tự động cập nhật trạng thái đơn hoàn thành</span>
+                </div>
+            </div>
+
+            <div class="empty"></div>
+        </div>
+    </div>
+</section>
+

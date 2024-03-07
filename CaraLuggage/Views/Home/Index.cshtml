@@ -52,7 +52,7 @@
             double price = (double)product.product_price;
             <div class="pro">
                 <a href="@Url.Action("","ProductDetail", new { id=product.product_id })">
-                    <img src="~/Content/assets/img/products/f1.jpg" alt="">
+                    <img src="@product.product_image" alt="">
                     <div class="des">
                         <span>@ViewBag.BrandNames[product.product_brand]</span>
                         <h5>@product.product_name</h5>
@@ -86,141 +86,28 @@
     <h2>New Arrivals</h2>
     <p>Summer Collection New Morden Design</p>
     <div class="pro-container">
-        <div class="pro">
-            <img src="~/Content/assets/img/products/n1.jpg" alt="">
-            <div class="des">
-                <span>Adidas</span>
-                <h5>Cartoon Astronaunt T-Shirts</h5>
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h4>$78</h4>
+        @foreach (var product in ViewBag.Products)
+        {
+            double price = (double)product.product_price;
+            <div class="pro">
+                <a href="@Url.Action("","ProductDetail", new { id=product.product_id })">
+                    <img src="@product.product_image" alt="">
+                    <div class="des">
+                        <span>@ViewBag.BrandNames[product.product_brand]</span>
+                        <h5>@product.product_name</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>@price.ToString("#,##0 VND")</h4>
+                    </div>
+                    <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
+                </a>
             </div>
-            <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
-        </div>
-
-        <div class="pro">
-            <img src="~/Content/assets/img/products/n2.jpg" alt="">
-            <div class="des">
-                <span>Adidas</span>
-                <h5>Cartoon Astronaunt T-Shirts</h5>
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h4>$78</h4>
-            </div>
-            <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
-        </div>
-
-        <div class="pro">
-            <img src="~/Content/assets/img/products/n3.jpg" alt="">
-            <div class="des">
-                <span>Adidas</span>
-                <h5>Cartoon Astronaunt T-Shirts</h5>
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h4>$78</h4>
-            </div>
-            <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
-        </div>
-
-        <div class="pro">
-            <img src="~/Content/assets/img/products/n4.jpg" alt="">
-            <div class="des">
-                <span>Adidas</span>
-                <h5>Cartoon Astronaunt T-Shirts</h5>
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h4>$78</h4>
-            </div>
-            <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
-        </div>
-
-        <div class="pro">
-            <img src="~/Content/assets/img/products/n5.jpg" alt="">
-            <div class="des">
-                <span>Adidas</span>
-                <h5>Cartoon Astronaunt T-Shirts</h5>
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h4>$78</h4>
-            </div>
-            <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
-        </div>
-
-        <div class="pro">
-            <img src="~/Content/assets/img/products/n6.jpg" alt="">
-            <div class="des">
-                <span>Adidas</span>
-                <h5>Cartoon Astronaunt T-Shirts</h5>
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h4>$78</h4>
-            </div>
-            <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
-        </div>
-
-        <div class="pro">
-            <img src="~/Content/assets/img/products/n7.jpg" alt="">
-            <div class="des">
-                <span>Adidas</span>
-                <h5>Cartoon Astronaunt T-Shirts</h5>
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h4>$78</h4>
-            </div>
-            <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
-        </div>
-
-        <div class="pro">
-            <img src="~/Content/assets/img/products/n8.jpg" alt="">
-            <div class="des">
-                <span>Adidas</span>
-                <h5>Cartoon Astronaunt T-Shirts</h5>
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h4>$78</h4>
-            </div>
-            <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
-        </div>
+        }
     </div>
 </section>
 
