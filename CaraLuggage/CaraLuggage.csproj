@@ -153,6 +153,7 @@
     <Compile Include="Models\ChiTietDonHang.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DBHelper.cs" />
     <Compile Include="Models\DonHang.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

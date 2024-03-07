@@ -1,4 +1,4 @@
-﻿@model CaraLuggage.Models.SanPham
+﻿@model IEnumerable<CaraLuggage.Models.SanPham>
 
 @{
     ViewBag.Title = "Home Page";
@@ -47,15 +47,15 @@
     <h2>Sản phẩm nổi bật</h2>
     <p>Summer Collection New Modern Design</p>
     <div class="pro-container">
-        @foreach (var product in ViewBag.Products)
+        @foreach (var item in Model)
         {
-            double price = (double)product.product_price;
+            double price = (double)item.product_price;
             <div class="pro">
-                <a href="@Url.Action("","ProductDetail", new { id=product.product_id })">
-                    <img src="@product.product_image" alt="">
+                <a href="@Url.Action("","ProductDetail", new { id=item.product_id })">
+                    <img src="@item.product_image" alt="">
                     <div class="des">
-                        <span>@ViewBag.BrandNames[product.product_brand]</span>
-                        <h5>@product.product_name</h5>
+                        <span>@item.ThuongHieu.brand_name</span>
+                        <h5>@item.product_name</h5>
                         <div class="star">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -86,15 +86,15 @@
     <h2>New Arrivals</h2>
     <p>Summer Collection New Morden Design</p>
     <div class="pro-container">
-        @foreach (var product in ViewBag.Products)
+        @foreach (var item in Model)
         {
-            double price = (double)product.product_price;
+            double price = (double)item.product_price;
             <div class="pro">
-                <a href="@Url.Action("","ProductDetail", new { id=product.product_id })">
-                    <img src="@product.product_image" alt="">
+                <a href="@Url.Action("","ProductDetail", new { id=item.product_id })">
+                    <img src="@item.product_image" alt="">
                     <div class="des">
-                        <span>@ViewBag.BrandNames[product.product_brand]</span>
-                        <h5>@product.product_name</h5>
+                        <span>@item.ThuongHieu.brand_name</span>
+                        <h5>@item.product_name</h5>
                         <div class="star">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>

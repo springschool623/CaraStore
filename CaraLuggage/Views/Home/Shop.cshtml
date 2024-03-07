@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<CaraLuggage.Models.SanPham>
 @{
     ViewBag.Title = "Shop";
     Layout = "~/Views/Shared/UserView.cshtml";
@@ -10,16 +10,27 @@
 </section>
 
 <section class="section-p1" id="products1">
+    <div class="pro-container" style="justify-content: flex-start;">
+        <div class="dropdown">
+            <button class="dropbtn">Lọc</button>
+            <div class="dropdown-content">
+                <a href="@Url.Action("PriceSortingHighToLow")">Giá từ cao đến thấp</a>
+                <a href="@Url.Action("PriceSortingLowToHigh")">Giá từ thấp đến cao</a>
+                <a href="@Url.Action("AlphabetSortingAToZ")">Theo thứ tự từ a - z</a>
+                <a href="@Url.Action("AlphabetSortingZToA")">Theo thứ tự từ z - a</a>
+            </div>
+        </div>
+    </div>
     <div class="pro-container">
-        @foreach (var product in ViewBag.Products)
+        @foreach (var item in Model)
         {
-            double price = (double)product.product_price;
+            double price = (double)item.product_price;
             <div class="pro">
-                <a href="@Url.Action("","ProductDetail", new { id=product.product_id })">
-                    <img src="@product.product_image" alt="">
+                <a href="@Url.Action("","ProductDetail", new { id=item.product_id })">
+                    <img src="@item.product_image" alt="">
                     <div class="des">
-                        <span>@ViewBag.BrandNames[product.product_brand]</span>
-                        <h5>@product.product_name</h5>
+                        <span>@item.ThuongHieu.brand_name</span>
+                        <h5>@item.product_name</h5>
                         <div class="star">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -41,4 +52,3 @@
     <a href="#">2</a>
     <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
 </section>
-
