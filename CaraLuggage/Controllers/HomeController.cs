@@ -16,24 +16,8 @@ namespace QuanLyShopBanVali.Controllers
 
         public ActionResult Index()
         {
-            // Lấy danh sách sản phẩm và thương hiệu
-            var products = db.SanPhams.ToList();
-            var brands = db.ThuongHieux.ToList();
-
-            // Tạo một Dictionary để lưu trữ brand_name tương ứng với mỗi brand_id
-            Dictionary<int, string> brandNames = new Dictionary<int, string>();
-
-            // Duyệt qua danh sách thương hiệu và thêm vào Dictionary
-            foreach (var brand in brands)
-            {
-                brandNames.Add(brand.brand_id, brand.brand_name);
-            }
-
-            // Thêm dữ liệu vào ViewBag
-            ViewBag.Products = products;
-            ViewBag.BrandNames = brandNames;
-
-            return View();
+            var sanPhams = db.SanPhams.Include(s => s.ChatLieu).Include(s => s.LoaiSanPham).Include(s => s.MauSac).Include(s => s.ThuongHieu);
+            return View(sanPhams.ToList());
         }
 
         public ActionResult About()
@@ -57,23 +41,41 @@ namespace QuanLyShopBanVali.Controllers
 
         public ActionResult Shop()
         {
-            // Lấy danh sách sản phẩm và thương hiệu
-            var products = db.SanPhams.ToList();
-            var brands = db.ThuongHieux.ToList();
+            var sanPhams = db.SanPhams.Include(s => s.ChatLieu).Include(s => s.LoaiSanPham).Include(s => s.MauSac).Include(s => s.ThuongHieu);
+            return View(sanPhams.ToList());
+        }
 
-            // Tạo một Dictionary để lưu trữ brand_name tương ứng với mỗi brand_id
-            Dictionary<int, string> brandNames = new Dictionary<int, string>();
+        public ActionResult PriceSortingHighToLow()
+        {
+            // Lấy danh sách sản phẩm và sắp xếp theo giá từ cao đến thấp
+            var sanPhams = db.SanPhams.OrderByDescending(s => s.product_price).ToList();
 
-            // Duyệt qua danh sách thương hiệu và thêm vào Dictionary
-            foreach (var brand in brands)
-            {
-                brandNames.Add(brand.brand_id, brand.brand_name);
-            }
+            return View("Shop", sanPhams);
+        }
 
-            // Thêm dữ liệu vào ViewBag
-            ViewBag.Products = products;
-            ViewBag.BrandNames = brandNames;
-            return View();
+        public ActionResult PriceSortingLowToHigh()
+        {
+            // Lấy danh sách sản phẩm và sắp xếp theo giá từ cao đến thấp
+            var sanPhams = db.SanPhams.OrderBy(s => s.product_price).ToList();
+
+            return View("Shop", sanPhams);
+        }
+
+        public ActionResult AlphabetSortingAToZ()
+        {
+            // Lấy danh sách sản phẩm và sắp xếp theo giá từ cao đến thấp
+            var sanPhams = db.SanPhams.OrderBy(s => s.product_name).ToList();
+
+            return View("Shop", sanPhams);
+        }
+
+        public ActionResult AlphabetSortingZToA()
+        {
+            // Lấy danh sách sản phẩm và sắp xếp theo giá từ cao đến thấp
+            var sanPhams = db.SanPhams.OrderByDescending(s => s.product_name).ToList();
+
+
+            return View("Shop", sanPhams);
         }
 
         public ActionResult UserOrder(string accountName)
