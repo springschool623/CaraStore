@@ -1,4 +1,5 @@
-﻿using CaraLuggage.Models;
+﻿using CaraLuggage.Controllers.ProxyPattern;
+using CaraLuggage.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,14 @@ namespace QuanLyShopBanVali.Controllers
 {
     public class LoginRegisterController : Controller
     {
-        private CaraLuggageDBEntities db = new CaraLuggageDBEntities();
+        private readonly CaraLuggageDBEntities db;
+        private readonly ILoginProxy loginProxy;
+
+        public LoginRegisterController()
+        {
+            db = new CaraLuggageDBEntities();
+            loginProxy = new LoginProxy(db);
+        }
 
         // GET: LoginRegister
         public ActionResult LoginSection()
@@ -25,17 +33,15 @@ namespace QuanLyShopBanVali.Controllers
         [HttpPost]
         public ActionResult Login(LoginInfo loginInfo)
         {
-            var accountRegistered = db.TaiKhoans.Any(r => r.account_name == loginInfo.UserName && r.account_password == loginInfo.Password && r.account_status == true);
+            //var accountRegistered = db.TaiKhoans.Any(r => r.account_name == loginInfo.UserName && r.account_password == loginInfo.Password && r.account_status == true);
 
-            // Check if the loginInfo is for a Student
-            var isCustomer = db.KhachHangs.Any(u => u.customer_account == loginInfo.UserName);
+            //var isCustomer = db.KhachHangs.Any(u => u.customer_account == loginInfo.UserName);
 
-            // Check if the loginInfo is for a Teacher
-            var isStaff = db.NhanViens.Any(u => u.staff_account == loginInfo.UserName);
+            //var isStaff = db.NhanViens.Any(u => u.staff_account == loginInfo.UserName);
 
-            if (accountRegistered)
+            if (loginProxy.ValidateLogin(loginInfo))
             {
-                if (isCustomer)
+                if (loginProxy.CheckUserRole(loginInfo))
                 {
                     // Set the "UserCode" session variable to the user code
                     Session["UserName"] = loginInfo.UserName;
@@ -43,7 +49,7 @@ namespace QuanLyShopBanVali.Controllers
 
                     return RedirectToAction("", "Home");
                 }
-                else if (isStaff)
+                else if (!loginProxy.CheckUserRole(loginInfo))
                 {
                     Session["UserName"] = loginInfo.UserName;
 

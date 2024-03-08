@@ -143,6 +143,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginRegisterController.cs" />
     <Compile Include="Controllers\ProductDetailController.cs" />
+    <Compile Include="Controllers\ProxyPattern\ILoginProxy.cs" />
+    <Compile Include="Controllers\ProxyPattern\LoginProxy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
