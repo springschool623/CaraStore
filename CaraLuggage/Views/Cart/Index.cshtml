@@ -13,19 +13,19 @@
     <table width="100%">
         <thead>
             <tr>
-                <td>Remove</td>
-                <td>Image</td>
-                <td>Product</td>
-                <td>Price</td>
-                <td>Quantity</td>
-                <td>Subtotal</td>
+                <td>Xóa</td>
+                <td>Hình ảnh</td>
+                <td>Sản phẩm</td>
+                <td>Giá</td>
+                <td>Số lượng</td>
+                <td>Thành tiền</td>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td><a href="@Url.Action("RemoveFromCart", "Cart", new { productId = item.productID })"><i class="fa-solid fa-circle-xmark"></i></a></td>
+                    <td><a href="@Url.Action("RemoveFromCart", "Cart", new { productId = item.productID })" style="color:red;"><i class="fa-solid fa-circle-xmark"></i></a></td>
                     <td><img src="@item.productImage" alt=""></td>
                     @{
                         double price = item.productPrice;
@@ -49,7 +49,7 @@
         </tbody>
     </table>
     <div style="margin-top: 20px;">
-        <a href="@Url.Action("Index","Home")" style=" text-decoration: none; font-size: 20px; color: #0cc5b9 "><i class="fa-solid fa-arrow-rotate-left"></i><span style="padding: 5px;">Trở về trang mua hàng</span></a>
+        <a href="@Url.Action("Index","Home")" style=" text-decoration: none; font-size: 20px; color: #8DDFEB "><i class="fa-solid fa-arrow-rotate-left"></i><span style="padding: 5px;">Trở về trang mua hàng</span></a>
     </div>
 </section>
 
@@ -57,15 +57,15 @@
 
 <section id="cart-add" class="section-p1">
     <div id="coupon">
-        <h3>Apply Coupon</h3>
+        <h3>Áp dụng Khuyến mãi</h3>
         <div>
             <input type="text" placeholder="Enter Your Coupon">
-            <button class="normal">Apply</button>
+            <button class="normal">Áp dụng</button>
         </div>
     </div>
 
     <div id="subtotal">
-        <h3>Cart Totals</h3>
+        <h3>Tổng tiền Giỏ hàng</h3>
         <table>
             <tr>
                 @{
@@ -75,12 +75,12 @@
                         subtotal = ViewBag.Total;
                     }
                 }
-                <td><strong>Total</strong></td>
+                <td><strong>Tổng tiền</strong></td>
                 <td id="cartTotal"><strong>@subtotal.ToString("#,##0 VND")</strong></td>
             </tr>
         </table>
-        <a href="@Url.Action("PayForProductView", "Cart")" class="normal" style="margin: 10px 0; padding: 15px; border-radius: 5px;text-align:center; text-decoration: none; background-color: #0cc5b9; color: white;">Thanh toán</a>
-        <a href="@Url.Action("TotalCart", "Cart")" class="normal" style="text-align:right; margin: 10px 0; padding: 15px; border-radius: 5px;text-align:center; text-decoration: none; background-color: #0cc5b9; color: white;">Cập nhật giỏ hàng</a>
+        <a href="@Url.Action("PayForProductView", "Cart")" class="normal" style="margin-top: 20px; padding: 15px; border-radius: 5px; text-align: center; text-decoration: none; background-color: #8DDFEB; color: white;">Thanh toán</a>
+        <a href="@Url.Action("TotalCart", "Cart")" class="normal" style="text-align: right; margin-top: 20px; padding: 15px; border-radius: 5px; text-align: center; text-decoration: none; background-color: #8DDFEB; color: white;">Cập nhật giỏ hàng</a>
     </div>
 </section>
 
