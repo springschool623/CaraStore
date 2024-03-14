@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CaraLuggage.Controllers.ProxyPattern
 {
-    internal interface ILoginProxy
+    public interface ILogin
     {
         bool ValidateLogin(LoginInfo loginInfo);
         bool CheckUserRole(LoginInfo loginInfo);

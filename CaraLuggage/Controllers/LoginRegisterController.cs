@@ -10,14 +10,7 @@ namespace QuanLyShopBanVali.Controllers
 {
     public class LoginRegisterController : Controller
     {
-        private readonly CaraLuggageDBEntities db;
-        private readonly ILoginProxy loginProxy;
-
-        public LoginRegisterController()
-        {
-            db = new CaraLuggageDBEntities();
-            loginProxy = new LoginProxy(db);
-        }
+        private CaraLuggageDBEntities db = new CaraLuggageDBEntities();
 
         // GET: LoginRegister
         public ActionResult LoginSection()
@@ -33,11 +26,7 @@ namespace QuanLyShopBanVali.Controllers
         [HttpPost]
         public ActionResult Login(LoginInfo loginInfo)
         {
-            //var accountRegistered = db.TaiKhoans.Any(r => r.account_name == loginInfo.UserName && r.account_password == loginInfo.Password && r.account_status == true);
-
-            //var isCustomer = db.KhachHangs.Any(u => u.customer_account == loginInfo.UserName);
-
-            //var isStaff = db.NhanViens.Any(u => u.staff_account == loginInfo.UserName);
+            ILogin loginProxy = new LoginProxy();
 
             if (loginProxy.ValidateLogin(loginInfo))
             {
