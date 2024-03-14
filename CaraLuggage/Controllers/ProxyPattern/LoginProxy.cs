@@ -6,30 +6,25 @@ using System.Web;
 
 namespace CaraLuggage.Controllers.ProxyPattern
 {
-    public class LoginProxy : ILoginProxy
+    public class LoginProxy : ILogin
     {
-        private readonly CaraLuggageDBEntities db;
+        private CaraLuggageDBEntities db = new CaraLuggageDBEntities();
 
-        public LoginProxy(CaraLuggageDBEntities dbContext)
+        private LoginService _login;
+
+        public LoginProxy()
         {
-            db = dbContext;
+            _login = new LoginService(db);
         }
 
         public bool ValidateLogin(LoginInfo loginInfo)
         {
-            // Ví dụ:
-            var accountRegistered = db.TaiKhoans.Any(r => r.account_name == loginInfo.UserName && r.account_password == loginInfo.Password && r.account_status == true);
-
-            // Trả về kết quả kiểm tra
-            return accountRegistered;
+            return _login.ValidateLogin(loginInfo);
         }
 
         public bool CheckUserRole(LoginInfo loginInfo)
         {
-            // Check if the loginInfo is for a Student
-            var isCustomer = db.KhachHangs.Any(u => u.customer_account == loginInfo.UserName);
-
-            return isCustomer;
+            return _login.CheckUserRole(loginInfo);
         }
     }
 }

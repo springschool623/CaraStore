@@ -76,10 +76,14 @@ function checkAndUpdateDarkModeAndLogo() {
         const logoImg = document.getElementById('logo-mode');
         if (isDarkMode) {
             logoImg.src = darkModeLogo;
+            localStorage.setItem('logoPath', darkModeLogo); // Lưu đường dẫn logo hiện tại vào LocalStorage
+
             document.getElementById('mode-switch').querySelector('i').classList.remove('fa-moon');
             document.getElementById('mode-switch').querySelector('i').classList.add('fa-sun');
         } else {
             logoImg.src = lightModeLogo;
+            localStorage.setItem('logoPath', lightModeLogo); // Lưu đường dẫn logo hiện tại vào LocalStorage
+
             document.getElementById('mode-switch').querySelector('i').classList.remove('fa-sun');
             document.getElementById('mode-switch').querySelector('i').classList.add('fa-moon');
         }
