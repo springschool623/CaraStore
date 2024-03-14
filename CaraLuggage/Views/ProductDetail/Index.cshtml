@@ -25,13 +25,12 @@
             <option>Large</option>
         </select>
         <input name="buy-quantity" type="number" value="1">
-        <a href="@Url.Action("AddToCart", "Cart", new { productId = @Model.product_id })" class="normal" style="display:block;width: 150px; margin: 10px 0; padding: 15px; border-radius: 5px;text-align:center; text-decoration: none; background-color: #0cc5b9; color: white;">Add To Cart</a>
+        <a href="@Url.Action("AddToCart", "Cart", new { productId = @Model.product_id })" class="normal" style="display: block; width: 150px; margin: 10px 0; padding: 15px; border-radius: 5px; text-align: center; text-decoration: none; background-color: #8DDFEB; color: white;font-weight:600">Add To Cart</a>
     </div>
 </section>
 
 <section class="section-p1" id="products1">
-    <h2>Related Products</h2>
-    <p>Summer Collection New Morden Design</p>
+    <h2>Sản phẩm liên quan</h2>
     <div class="pro-container">
         @foreach (var product in ViewBag.relatedProduct)
         {

@@ -263,6 +263,7 @@
     <Content Include="Content\assets\img\about\a5.jpg" />
     <Content Include="Content\assets\img\about\a6.jpg" />
     <Content Include="Content\assets\img\about\banner.png" />
+    <Content Include="Content\assets\img\bannerYellow.jpg" />
     <Content Include="Content\assets\img\banner\b1.jpg" />
     <Content Include="Content\assets\img\banner\b10.jpg" />
     <Content Include="Content\assets\img\banner\b14.png" />
@@ -274,6 +275,9 @@
     <Content Include="Content\assets\img\banner\b20.jpg" />
     <Content Include="Content\assets\img\banner\b4.jpg" />
     <Content Include="Content\assets\img\banner\b7.jpg" />
+    <Content Include="Content\assets\img\banner\banner150.png" />
+    <Content Include="Content\assets\img\banner\banner151.png" />
+    <Content Include="Content\assets\img\banner\banner152.png" />
     <Content Include="Content\assets\img\banner\pexels-johannes-plenio-1456301.jpg" />
     <Content Include="Content\assets\img\bg.jpg" />
     <Content Include="Content\assets\img\blog\b1.jpg" />

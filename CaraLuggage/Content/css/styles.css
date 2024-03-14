@@ -66,7 +66,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 20px 80px;
-    background-color: #e3e6f3;
+    background-color: #D6FCFE;
     box-shadow: 0 5px 15px rgba(0,0,0,0.06);
     z-index: 999;
     position: sticky;
@@ -96,7 +96,7 @@ body {
 
             #navbar li a:hover,
             #navbar li a.active {
-                color: #0cc5b9;
+                color: #FEBE10;
             }
 
                 #navbar li a.active::after,
@@ -104,7 +104,7 @@ body {
                     content: "";
                     width: 30%;
                     height: 2px;
-                    background: #0cc5b9;
+                    background: #FEBE10;
                     position: absolute;
                     bottom: -4px;
                     left: 20px;
@@ -112,7 +112,7 @@ body {
 
 /*Home Page*/
 #hero {
-    background-image: url("../assets/img/hero4.png");
+    background-image: url("../assets/img/bannerYellow.jpg");
     height: 80vh;
     width: 100%;
     background-size: cover;
@@ -129,19 +129,19 @@ body {
     }
 
     #hero h1 {
-        color: #0cc5b9;
+        color: white;
     }
 
     #hero button {
-        background-image: url("../assets/img/button.png");
-        background-color: transparent;
-        color: #0cc5b9;
+        background-color: #D6FCFE;
+        color: black;
         border: 0;
         font-size: 17px;
-        padding: 14px 110px 14px 65px;
+        padding: 14px 50px 14px 50px;
         background-repeat: no-repeat;
         cursor: pointer;
         font-weight: 700;
+        border-radius: 10px
     }
 
 #feature {
@@ -214,7 +214,7 @@ body {
         width: 23%;
         min-width: 250px;
         padding: 10px 12px;
-        border: 1px solid #cce7d0;
+        border: 1px solid #c9cbce;
         border-radius: 25px;
         cursor: pointer;
         box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
@@ -243,25 +243,28 @@ body {
 
             #products1 .pro .des span {
                 color: #606063;
-                font-size: 14px;
+                font-size: 18px;
             }
 
             #products1 .pro .des h5 {
                 padding-top: 7px;
                 color: #1a1a1a;
-                font-size: 16px;
+                font-size: 26px;
+                margin-bottom: 12px;
+                margin-top:5px
             }
 
             #products1 .pro .des i {
-                font-size: 14px;
+                font-size: 16px;
                 color: rgb(243, 181, 25);
+                margin-bottom: 10px;
             }
 
             #products1 .pro .des h4 {
                 padding-top: 7px;
-                font-size: 17px;
+                font-size: 19px;
                 font-weight: 700;
-                color: #0cc5b9;
+                color: #8DDFEB;
             }
 
         #products1 .pro .cart {
@@ -269,9 +272,9 @@ body {
             height: 40px;
             line-height: 40px;
             border-radius: 50px;
-            background-color: #e8f6ea;
-            color: #0cc5b9;
-            border: 1px solid #cce7d0;
+            background-color: #D6FCFE;
+            color: #8DDFEB;
+            border: 1px solid #8DDFEB;
             position: absolute;
             bottom: 20px;
             right: 10px;
@@ -306,8 +309,8 @@ body {
         }
 
     #banner button:hover {
-        background: #0cc5b9;
-        color: #fff;
+        background: #D6FCFE;
+        color: #FEBE10;
     }
 
 #sm-banner {
@@ -321,7 +324,7 @@ body {
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        background-image: url("../assets/img/banner/b17.jpg");
+        background-image: url("../assets/img/banner/banner151.png");
         min-width: 820px;
         height: 50vh;
         background-size: cover;
@@ -330,7 +333,7 @@ body {
     }
 
     #sm-banner .banner-box2 {
-        background-image: url("../assets/img/banner/b10.jpg");
+        background-image: url("../assets/img/banner/banner152.png");
     }
 
     #sm-banner h4 {
@@ -366,8 +369,9 @@ body {
     }
 
     #sm-banner .banner-box:hover button {
-        background: #0cc5b9;
-        border: 1px solid #0cc5b9;
+        background: #D6FCFE;
+        border: 1px solid #D6FCFE;
+        color: #FEBE10;
     }
 
 #banner3 {
@@ -456,7 +460,7 @@ body {
     }
 
     #newsletter button {
-        background-color: #0cc5b9;
+        background-color: #8DDFEB;
         color: #fff;
         white-space: none;
         border-top-left-radius: 0;
@@ -508,7 +512,7 @@ footer {
         }
 
     footer .install .row img {
-        border: 1px solid #0cc5b9;
+        border: 1px solid #c9cbce;
         border-radius: 6px;
     }
 
@@ -552,7 +556,7 @@ footer {
 
     #pagination a {
         text-decoration: none;
-        background-color: #0cc5b9;
+        background-color: #8DDFEB;
         padding: 15px 20px;
         border-radius: 4px;
         color: #fff;
@@ -602,8 +606,16 @@ footer {
 
     #prodetails .single-pro-details select {
         display: block;
-        padding: 5px 10px;
-        margin-bottom: 10px;
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        margin-top:5px;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    #prodetails .single-pro-details select option{
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-top:5px;
     }
 
     #prodetails .single-pro-details .d {
@@ -616,6 +628,8 @@ footer {
         padding-left: 10px;
         font-size: 18px;
         margin-right: 10px;
+        border-radius:5px;
+        margin-bottom: 15px;
     }
 
         #prodetails .single-pro-details input:focus {
@@ -623,7 +637,7 @@ footer {
         }
 
     #prodetails .single-pro-details button {
-        background-color: #0cc5b9;
+        background-color: #8DDFEB;
         color: #fff;
     }
 
@@ -853,7 +867,7 @@ footer {
 }
 
     #cart table img {
-        width: 70px;
+        width: 100px;
     }
 
     #cart table td:nth-child(1) {
@@ -931,7 +945,7 @@ footer {
 
     #coupon button,
     #subtotal button {
-        background-color: #0cc5b9;
+        background-color: #8DDFEB;
         color: #fff;
         padding: 12px 20px;
     }
@@ -1033,7 +1047,7 @@ input:checked + .radio-title label {
 }
 
 #proceed .tong-thanh-toan button {
-    background-color: #0cc5b9;
+    background-color: #8DDFEB;
     color: #fff;
     height: 60px;
     width: 200px;
@@ -1481,16 +1495,24 @@ input:checked + .radio-title label {
     width: 100px;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid black;
+    border: 1px solid #747474;
+    border-radius: 5px;
     font-weight: 600;
     cursor: pointer;
+    background-color: white;
+    color: #747474;
+}
+
+#filter {
+    color: #747474;
 }
 
 /* Style the dropdown content */
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: #fff;
+    border-radius:5px;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -1516,5 +1538,5 @@ input:checked + .radio-title label {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-    background-color: #11f0e1;
+    background-color: #fafafa;
 }
