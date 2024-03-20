@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/UserView.cshtml";
 }
+@using CaraLuggage.Controllers.DecoratorPattern;
 
 <section id="page-header" class="about-header">
     <h2>#giohangcucchill</h2>
@@ -24,6 +25,10 @@
         <tbody>
             @foreach (var item in Model)
             {
+                SalesOff sales = new SalesOff(item.productID);
+                SalesOffDecorator s = new BlackFridaySalesDecorator(sales);
+
+
                 <tr>
                     <td><a href="@Url.Action("RemoveFromCart", "Cart", new { productId = item.productID })" style="color:red;"><i class="fa-solid fa-circle-xmark"></i></a></td>
                     <td><img src="@item.productImage" alt=""></td>
@@ -33,7 +38,16 @@
                     <td>
                         <a href="@Url.Action("Index", "ProductDetail", new { id=item.productID })" style="text-decoration: none; color: black;">@item.productName</a>
                     </td>
-                    <td>@price.ToString("#,##0 VND")</td>
+                        @if (s != null)
+                        {
+                            double priceAfter = s.GetSalesPrice();
+                            item.productPrice = priceAfter;
+                            <td>@priceAfter.ToString("#,##0 VND")</td>
+                        }
+                        else
+                        {
+                            <td>@price.ToString("#,##0 VND")</td>
+                        }                    
                     @{
                         int quantity = item.productQuantity;
                         double subprice = item.productPrice;
@@ -95,5 +109,4 @@
 
         document.getElementById(productId).innerText = formattedTotal;
     }
-
 </script>

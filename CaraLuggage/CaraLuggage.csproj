@@ -134,12 +134,16 @@
     <Compile Include="Controllers\AdminController\CategoriesController.cs" />
     <Compile Include="Controllers\AdminController\ColorsController.cs" />
     <Compile Include="Controllers\AdminController\CustomersController.cs" />
-    <Compile Include="Controllers\AdminController\DonHangsController.cs" />
     <Compile Include="Controllers\AdminController\MaterialsController.cs" />
     <Compile Include="Controllers\AdminController\OrdersController.cs" />
     <Compile Include="Controllers\AdminController\ProductsController.cs" />
     <Compile Include="Controllers\AdminController\StaffsController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\DecoratorPattern\BlackFridaySalesDecorator.cs" />
+    <Compile Include="Controllers\DecoratorPattern\ISalesOff.cs" />
+    <Compile Include="Controllers\DecoratorPattern\SalesOff.cs" />
+    <Compile Include="Controllers\DecoratorPattern\SalesOffDecorator.cs" />
+    <Compile Include="Controllers\DecoratorPattern\WinterSalesDecorator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginRegisterController.cs" />
     <Compile Include="Controllers\ProductDetailController.cs" />

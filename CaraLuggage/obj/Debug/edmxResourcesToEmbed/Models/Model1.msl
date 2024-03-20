@@ -23,6 +23,7 @@
     <EntitySetMapping Name="DonHangs">
       <EntityTypeMapping TypeName="CaraLuggageDBModel.DonHang">
         <MappingFragment StoreEntitySet="DonHang">
+          <ScalarProperty Name="order_modifiedAt" ColumnName="order_modifiedAt" />
           <ScalarProperty Name="order_totalPrice" ColumnName="order_totalPrice" />
           <ScalarProperty Name="order_no" ColumnName="order_no" />
           <ScalarProperty Name="order_code" ColumnName="order_code" />

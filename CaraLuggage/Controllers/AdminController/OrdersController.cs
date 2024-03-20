@@ -50,7 +50,7 @@ namespace CaraLuggage.Controllers.AdminController
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "order_no,order_code,order_createAt,order_customer,order_staff,order_status,order_payment,order_totalPrice")] DonHang donHang)
+        public ActionResult Create([Bind(Include = "order_no,order_code,order_createAt,order_customer,order_staff,order_status,order_payment,order_totalPrice,order_modifiedAt")] DonHang donHang)
         {
             if (ModelState.IsValid)
             {
@@ -80,6 +80,13 @@ namespace CaraLuggage.Controllers.AdminController
             ViewBag.order_customer = new SelectList(db.KhachHangs, "customer_id", "customer_name", donHang.order_customer);
             ViewBag.order_payment = new SelectList(db.PhuongThucThanhToans, "payment_no", "payment_name", donHang.order_payment);
             ViewBag.order_staff = new SelectList(db.NhanViens, "staff_id", "staff_name", donHang.order_staff);
+            ViewBag.order_status = new SelectList(new List<string>
+            {
+                "Chưa xác nhận",
+                "Đã xác nhận",
+                "Đang giao hàng",
+                "Đã giao hàng"
+            });
             return View(donHang);
         }
 
@@ -88,11 +95,17 @@ namespace CaraLuggage.Controllers.AdminController
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "order_no,order_code,order_createAt,order_customer,order_staff,order_status,order_payment,order_totalPrice")] DonHang donHang)
+        public ActionResult Edit([Bind(Include = "order_no,order_code,order_createAt,order_customer,order_staff,order_status,order_payment,order_totalPrice,order_modifiedAt")] DonHang donHang)
         {
             if (ModelState.IsValid)
             {
+                string currentAccount = Session["UserName"] as string;
+                var nhanVien = db.NhanViens.FirstOrDefault(s => s.staff_account == currentAccount);
                 db.Entry(donHang).State = EntityState.Modified;
+
+                donHang.order_modifiedAt = DateTime.Now;
+                donHang.order_staff = nhanVien.staff_id;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -123,6 +136,14 @@ namespace CaraLuggage.Controllers.AdminController
         public ActionResult DeleteConfirmed(int id)
         {
             DonHang donHang = db.DonHangs.Find(id);
+
+            var chiTietDonHangs = db.ChiTietDonHangs.Where(d => d.od_orderno == donHang.order_no).ToList();
+
+            foreach (var chiTiet in chiTietDonHangs)
+            {
+                db.ChiTietDonHangs.Remove(chiTiet);
+            }
+
             db.DonHangs.Remove(donHang);
             db.SaveChanges();
             return RedirectToAction("Index");

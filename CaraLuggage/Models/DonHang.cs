@@ -44,6 +44,10 @@ namespace CaraLuggage.Models
 
         [Display(Name = "Tổng tiền")]
         public Nullable<double> order_totalPrice { get; set; }
+
+        [Display(Name = "Ngày chỉnh sửa đơn")]
+        public Nullable<System.DateTime> order_modifiedAt { get; set; }
+
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; }
