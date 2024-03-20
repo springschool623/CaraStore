@@ -16,7 +16,13 @@ namespace QuanLyShopBanVali.Controllers
 
         public ActionResult Index()
         {
+            var newArrivals = db.SanPhams
+                                .OrderByDescending(p => p.product_createAt)
+                                .Take(1)
+                                .ToList();
             var sanPhams = db.SanPhams.Include(s => s.ChatLieu).Include(s => s.LoaiSanPham).Include(s => s.MauSac).Include(s => s.ThuongHieu);
+
+            ViewBag.newArrival = newArrivals;
             return View(sanPhams.ToList());
         }
 

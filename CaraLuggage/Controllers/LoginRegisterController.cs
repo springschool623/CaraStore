@@ -24,7 +24,7 @@ namespace QuanLyShopBanVali.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginInfo loginInfo)
+        public ActionResult LoginSection(LoginInfo loginInfo)
         {
             ILogin loginProxy = new LoginProxy();
 
@@ -36,13 +36,13 @@ namespace QuanLyShopBanVali.Controllers
                     Session["UserName"] = loginInfo.UserName;
                     Session["isCustomer"] = "isCustomer";
 
-                    return RedirectToAction("", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else if (!loginProxy.CheckUserRole(loginInfo))
                 {
                     Session["UserName"] = loginInfo.UserName;
 
-                    return RedirectToAction("", "AdminDashboard");
+                    return RedirectToAction("Index", "AdminDashboard");
                 }
                 else
                 {
@@ -139,7 +139,7 @@ namespace QuanLyShopBanVali.Controllers
             Session.Clear();
 
             // Redirect to the login page
-            return RedirectToAction("","Home");
+            return RedirectToAction("Index","Home");
         }
     }
 }

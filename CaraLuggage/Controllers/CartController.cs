@@ -1,4 +1,5 @@
-﻿using CaraLuggage.Models;
+﻿using CaraLuggage.Controllers.DecoratorPattern;
+using CaraLuggage.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -192,10 +193,23 @@ namespace QuanLyShopBanVali.Controllers
             foreach(var cartItem in cartItems)
             {
                 SanPham sanPham = db.SanPhams.FirstOrDefault(p => p.product_id == cartItem.productID);
+                SalesOff sales = new SalesOff(sanPham.product_id);
+                SalesOffDecorator s = new BlackFridaySalesDecorator(sales);
+
+                double priceAfter = s.GetSalesPrice();
+
 
                 chiTietDonHang.od_product = cartItem.productID;
                 chiTietDonHang.od_quantity = cartItem.productQuantity;
-                chiTietDonHang.od_price = sanPham.product_price * cartItem.productQuantity;
+                if(s != null)
+                {
+                    chiTietDonHang.od_price = priceAfter * cartItem.productQuantity;
+                }
+                else
+                {
+                    chiTietDonHang.od_price = sanPham.product_price * cartItem.productQuantity;
+
+                }
                 chiTietDonHang.od_orderno = donHang.order_no;
 
                 db.ChiTietDonHangs.Add(chiTietDonHang);
@@ -204,7 +218,7 @@ namespace QuanLyShopBanVali.Controllers
 
             Session["CartItems"] = null;
 
-            return RedirectToAction("OrderSuccess");
+            return RedirectToAction("OrderSuccess", "Cart");
         }
 
         public static string GenerateRandomOrderCode()

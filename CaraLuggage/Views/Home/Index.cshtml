@@ -4,6 +4,7 @@
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/UserView.cshtml";
 }
+@using CaraLuggage.Controllers.DecoratorPattern;
 
 
 <section id="hero" class="dark-mode">
@@ -43,15 +44,18 @@
 
 <!-- ... (các phần code khác) ... -->
 
-<section class="dark-mode section-p1e" id="products1">
+<section class="dark-mode section-p1" id="products1">
     <h2>Sản phẩm nổi bật</h2>
     <p>Nơi có nhiều mặc hàng nổi bật được đánh giá cao</p>
     <div class="pro-container">
         @foreach (var item in Model)
         {
+            SalesOff sales = new SalesOff(item.product_id);
+            SalesOffDecorator s = new BlackFridaySalesDecorator(sales);
             double price = (double)item.product_price;
+
             <div class="pro">
-                <a href="@Url.Action("","ProductDetail", new { id=item.product_id })">
+                <a href="@Url.Action("Index","ProductDetail", new { id=item.product_id })">
                     <img src="@item.product_image" alt="">
                     <div class="des">
                         <span>@item.ThuongHieu.brand_name</span>
@@ -63,7 +67,15 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
-                        <h4>@price.ToString("#,##0 VND")</h4>
+                        @if (s != null)
+                        {
+                            double priceAfter = s.GetSalesPrice();
+                            <h4><span style="color: #ff0000">@priceAfter.ToString("#,##0 VND")</span><s style="color: #808080; margin-left: 14px;">@price.ToString("#,##0 VND")</s></h4>
+                        }
+                        else
+                        {
+                            <h4><span style="color: #ff0000">@price.ToString("#,##0 VND")</span></h4>
+                        }
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </a>
@@ -86,11 +98,13 @@
     <h2>Sản phẩm mới ra mắt</h2>
     <p>Các sản phẩm, các collection mới được ra mắt</p>
     <div class="pro-container">
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.newArrival)
         {
+            SalesOff sales = new SalesOff(item.product_id);
+            SalesOffDecorator s = new BlackFridaySalesDecorator(sales);
             double price = (double)item.product_price;
             <div class="pro">
-                <a href="@Url.Action("","ProductDetail", new { id=item.product_id })">
+                <a href="@Url.Action("Index","ProductDetail", new { id=item.product_id })">
                     <img src="@item.product_image" alt="">
                     <div class="des">
                         <span>@item.ThuongHieu.brand_name</span>
@@ -102,7 +116,15 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
-                        <h4>@price.ToString("#,##0 VND")</h4>
+                        @if (s != null)
+                        {
+                            double priceAfter = s.GetSalesPrice();
+                            <h4><span style="color: #ff0000">@priceAfter.ToString("#,##0 VND")</span><s style="color: #808080; margin-left: 14px;">@price.ToString("#,##0 VND")</s></h4>
+                        }
+                        else
+                        {
+                            <h4><span style="color: #ff0000">@price.ToString("#,##0 VND")</span></h4>
+                        }
                     </div>
                     <a href="#"><i class="fa-solid fa-cart-shopping cart"></i></a>
                 </a>

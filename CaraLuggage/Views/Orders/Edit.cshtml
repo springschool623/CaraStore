@@ -1,4 +1,4 @@
-﻿@model CaraLuggage.Models.LoaiSanPham
+﻿@model CaraLuggage.Models.DonHang
 
 @{
     ViewBag.Title = "Edit";
@@ -17,15 +17,61 @@
                 </div>
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.category_id)
+                @Html.HiddenFor(model => model.order_no)
+                @Html.HiddenFor(model => model.order_createAt)
+                @Html.HiddenFor(model => model.order_payment)
+                @Html.HiddenFor(model => model.order_totalPrice)
+                @Html.HiddenFor(model => model.order_customer)
+                @Html.HiddenFor(model => model.order_code)
+                @Html.HiddenFor(model => model.order_staff)
+
                 <div class="card-body">
                     <form>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.category_name)
-                                    @Html.EditorFor(model => model.category_name, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.category_name, "", new { @class = "text-danger" })
+                                    @Html.LabelFor(model => model.order_code)
+                                    @Html.EditorFor(model => model.order_code, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(model => model.order_code, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.order_status)
+                                    @Html.DropDownList("order_status", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.order_status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.order_customer)
+                                    @Html.EditorFor(model => model.order_customer, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(model => model.order_customer, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.order_totalPrice)
+                                    @Html.EditorFor(model => model.order_totalPrice, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(model => model.order_totalPrice, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.order_payment)
+                                    @Html.EditorFor(model => model.PhuongThucThanhToan.payment_name, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(model => model.order_payment, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.order_createAt)
+                                    @Html.EditorFor(model => model.order_createAt, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    @Html.ValidationMessageFor(model => model.order_createAt, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>

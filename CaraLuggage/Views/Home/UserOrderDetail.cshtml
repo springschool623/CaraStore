@@ -4,6 +4,11 @@
     ViewBag.Title = "UserOrderDetail";
     Layout = "~/Views/Shared/UserView.cshtml";
 }
+@using CaraLuggage.Controllers.DecoratorPattern;
+
+@{
+    double orderPrice = (double)Model.order_totalPrice;
+}
 
 <section id="page-header" class="about-header10">
     <h2>#chitiethoadoncuaban</h2>
@@ -28,7 +33,7 @@
                     <tr class="border1" id="tbodydetails">
                         <td>@Model.order_code</td>
                         <td>@Model.order_createAt</td>
-                        <td>@Model.order_totalPrice</td>
+                        <td>@orderPrice.ToString("#,##0 VND")</td>
                         <td>@Model.PhuongThucThanhToan.payment_name</td>
                     </tr>
                 </tbody>
@@ -39,14 +44,16 @@
                 <div class="chitiet-tong">
                     @foreach (var detail in ViewBag.OrderDetail)
                     {
+                        double price = (double)detail.od_price;
+
                         <div class="chitiet-sp">
                             <div style="flex:5">
                                 <h6>@detail.SanPham.product_name</h6>
                             </div>
                             <span style="flex:3" class="soluong">x @detail.od_quantity</span>
-                            <span style="flex:2; text-align: right;">@detail.od_price</span>
+                            <span style="flex:2; text-align: right;">@price.ToString("#,##0 VND")</span>
                         </div>
-                    }
+                        }
                 </div>
             </div>
 
@@ -54,7 +61,7 @@
                 <ul>
                     <li>
                         <span>Thanh Toán:</span>
-                        <span>@Model.order_totalPrice</span>
+                        <span>@orderPrice.ToString("#,##0 VND")</span>
                     </li>
                     <li>
                         <span>Vận Chuyển:</span>
@@ -73,7 +80,7 @@
             <div class="tongtien-hoadon">
                 <div>
                     <span>Tổng Tiền</span>
-                    <span>108.000đ</span>
+                    <span>@orderPrice.ToString("#,##0 VND")</span>
                 </div>
             </div>
 

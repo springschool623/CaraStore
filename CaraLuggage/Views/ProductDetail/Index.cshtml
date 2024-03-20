@@ -3,8 +3,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/UserView.cshtml";
 }
+@using CaraLuggage.Controllers.DecoratorPattern;
 
 @{
+    SalesOff sales = new SalesOff(@Model.product_id);
+    SalesOffDecorator s = new BlackFridaySalesDecorator(sales);
+
     double price = (double)@Model.product_price;
 }
 
@@ -16,8 +20,15 @@
     <div class="single-pro-details">
         <h6>Home / @Model.LoaiSanPham.category_name</h6>
         <h4>@Model.product_name</h4>
-        <h2>@price.ToString("#,##0 VND")</h2>
-        <select>
+        @if (s != null)
+        {
+            double priceAfter = s.GetSalesPrice();
+            <h2><span style="color: #ff0000">@priceAfter.ToString("#,##0 VND")</span><s style="color: #808080; margin-left: 14px;">@price.ToString("#,##0 VND")</s></h2>
+        }
+        else
+        {
+            <h2><span style="color: #ff0000">@price.ToString("#,##0 VND")</span></h2>
+        }        <select>
             <option>Select Size</option>
             <option>XL</option>
             <option>XXL</option>
@@ -25,7 +36,7 @@
             <option>Large</option>
         </select>
         <input name="buy-quantity" type="number" value="1">
-        <a href="@Url.Action("AddToCart", "Cart", new { productId = @Model.product_id })" class="normal" >Add To Cart</a>
+        <a href="@Url.Action("AddToCart", "Cart", new { productId = @Model.product_id })" class="normal" style="background-color: limegreen">Add To Cart</a>
     </div>
 </section>
 
@@ -34,10 +45,15 @@
     <div class="pro-container">
         @foreach (var product in ViewBag.relatedProduct)
         {
+            SalesOff p_sales = new SalesOff(product.product_id);
+            SalesOffDecorator ps = new BlackFridaySalesDecorator(p_sales);
+
+            double p_price = product.product_price;
+
             if (product.product_id != Model.product_id)
             {
                 <div class="pro">
-                    <a href="@Url.Action("","ProductDetail", new { id=product.product_id })">
+                    <a href="@Url.Action("Index","ProductDetail", new { id=product.product_id })">
                         <img src="~/Content/assets/img/products/f1.jpg" alt="">
                         <div class="des">
                             <span>@ViewBag.BrandNames[product.product_brand]</span>
@@ -49,7 +65,15 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </div>
-                            <h4>@product.product_price</h4>
+                            @if (s != null)
+                            {
+                                double priceAfter = ps.GetSalesPrice();
+                                <h4><span style="color: #ff0000">@priceAfter.ToString("#,##0 VND")</span><s style="color: #808080; margin-left: 14px;">@p_price.ToString("#,##0 VND")</s></h4>
+                            }
+                            else
+                            {
+                                <h4><span style="color: #ff0000">@p_price.ToString("#,##0 VND")</span></h4>
+                            }
                         </div>
                         <a href=""><i class="fa-solid fa-cart-shopping cart"></i></a>
                     </a>

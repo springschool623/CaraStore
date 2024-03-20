@@ -29,6 +29,7 @@
     <Property Name="order_status" Type="nvarchar" MaxLength="20" />
     <Property Name="order_payment" Type="int" />
     <Property Name="order_totalPrice" Type="float" />
+    <Property Name="order_modifiedAt" Type="datetime" />
   </EntityType>
   <EntityType Name="KhachHang">
     <Key>

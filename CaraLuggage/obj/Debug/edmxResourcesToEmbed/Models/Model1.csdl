@@ -36,6 +36,7 @@
     <NavigationProperty Name="PhuongThucThanhToan" Relationship="Self.FK__DonHang__order_p__534D60F1" FromRole="DonHang" ToRole="PhuongThucThanhToan" />
     <NavigationProperty Name="NhanVien" Relationship="Self.FK__DonHang__order_s__52593CB8" FromRole="DonHang" ToRole="NhanVien" />
     <Property Name="order_totalPrice" Type="Double" />
+    <Property Name="order_modifiedAt" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="KhachHang">
     <Key>

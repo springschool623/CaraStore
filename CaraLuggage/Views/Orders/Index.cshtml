@@ -85,10 +85,29 @@
                                     @Html.DisplayFor(modelItem => item.order_createAt)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.order_modifiedAt)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.order_payment)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.order_status)
+                                    @if (item.order_status == "Chưa xác nhận")
+                                    {
+                                        <span style="background-color: darkgray; color:white; padding: 4px 8px;border-radius: 6px; font-size: 14px">@Html.DisplayFor(modelItem => item.order_status)</span>
+                                    }
+                                    else if (item.order_status == "Đã xác nhận")
+                                    {
+                                        <span style="background-color: dodgerblue; color:white; padding: 4px 8px;border-radius: 6px; font-size: 14px">@Html.DisplayFor(modelItem => item.order_status)</span>
+                                    }
+                                    else if (item.order_status == "Đang giao hàng")
+                                    {
+                                        <span style="background-color: orangered; color:white; padding: 4px 8px;border-radius: 6px; font-size: 14px">@Html.DisplayFor(modelItem => item.order_status)</span>
+                                    }
+                                    else if (item.order_status == "Đã giao hàng")
+                                    {
+                                        <span style="background-color: forestgreen; color:white; padding: 4px 8px;border-radius: 6px; font-size: 14px">@Html.DisplayFor(modelItem => item.order_status)</span>
+                                    }
+
                                 </td>
                                 <td style="height: 100%; align-items: center;">
                                     <a href="@Url.Action("Edit", new { id=item.order_no })" class="crud-btn btn-info">
@@ -103,9 +122,6 @@
                         }
                     </tbody>
                 </table>
-            </div>
-            <div class="card-footer clearfix">
-                <a href="@Url.Action("Create", "Categories")" class="btn btn-success float-left">Thêm loại sản phẩm mới</a>
             </div>
         </div>
     </div>

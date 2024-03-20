@@ -34,6 +34,7 @@
           <Property Name="order_status" Type="nvarchar" MaxLength="20" />
           <Property Name="order_payment" Type="int" />
           <Property Name="order_totalPrice" Type="float" />
+          <Property Name="order_modifiedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -341,6 +342,7 @@
           <NavigationProperty Name="PhuongThucThanhToan" Relationship="Self.FK__DonHang__order_p__534D60F1" FromRole="DonHang" ToRole="PhuongThucThanhToan" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK__DonHang__order_s__52593CB8" FromRole="DonHang" ToRole="NhanVien" />
           <Property Name="order_totalPrice" Type="Double" />
+          <Property Name="order_modifiedAt" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -651,6 +653,7 @@
           <EntitySetMapping Name="DonHangs">
             <EntityTypeMapping TypeName="CaraLuggageDBModel.DonHang">
               <MappingFragment StoreEntitySet="DonHang">
+                <ScalarProperty Name="order_modifiedAt" ColumnName="order_modifiedAt" />
                 <ScalarProperty Name="order_totalPrice" ColumnName="order_totalPrice" />
                 <ScalarProperty Name="order_no" ColumnName="order_no" />
                 <ScalarProperty Name="order_code" ColumnName="order_code" />
