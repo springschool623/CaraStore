@@ -98,6 +98,13 @@ namespace CaraLuggage
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
+                name: "Register",
+                url: "dang-ky",
+                defaults: new { controller = "LoginRegister", action = "RegisterSection", id = UrlParameter.Optional }
+            );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
                 name: "LogOut",
                 url: "dang-xuat",
                 defaults: new { controller = "LoginRegister", action = "LogOut", id = UrlParameter.Optional }

@@ -127,10 +127,10 @@ namespace QuanLyShopBanVali.Controllers
                 khachHang.customer_account = taiKhoan.account_name;
                 db.KhachHangs.Add(khachHang);
                 db.SaveChanges();
-                return RedirectToAction("", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("", "Home", khachHang);
+            return RedirectToAction("Index", "Home", khachHang);
         }
 
         public ActionResult Logout()
