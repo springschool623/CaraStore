@@ -103,6 +103,33 @@ namespace CaraLuggage
                 defaults: new { controller = "LoginRegister", action = "LogOut", id = UrlParameter.Optional }
             );
 
+
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "LoginFacebook",
+                url: "dang-nhap-facebook",
+                defaults: new { controller = "LoginRegister", action = "LoginFacebook", id = UrlParameter.Optional }
+            );
+
+
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "FacebookRedirect",
+                url: "FacebookRedirect",
+                defaults: new { controller = "LoginRegister", action = "FacebookRedirect", id = UrlParameter.Optional }
+            );
+
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "GoogleLoginCallBack",
+                url: "dang-nhap-google",
+                defaults: new { controller = "LoginRegister", action = "GoogleLoginCallBack", id = UrlParameter.Optional }
+            );
+
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
                 name: "Add to Cart",

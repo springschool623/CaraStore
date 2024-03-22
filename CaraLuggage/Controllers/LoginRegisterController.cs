@@ -1,10 +1,20 @@
 ﻿using CaraLuggage.Controllers.ProxyPattern;
+using CaraLuggage.Dao;
 using CaraLuggage.Models;
+using Facebook;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Security.Cryptography.Pkcs;
 using System.Web;
 using System.Web.Mvc;
+using GoogleAuthentication.Services;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace QuanLyShopBanVali.Controllers
 {
@@ -15,6 +25,25 @@ namespace QuanLyShopBanVali.Controllers
         // GET: LoginRegister
         public ActionResult LoginSection()
         {
+            //Login Facebook
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = "25155442967434663",
+                client_secret = "dfb968e202308c4ca44f70d70ef48321",
+                redirect_uri = "https://localhost:44357/FacebookRedirect",
+                respone_type = "code",
+                scope = "public_profile,email",
+            });
+            ViewBag.Url = loginUrl;
+
+
+            //Login Google
+            var clientId = "1032401930561-u8ubttlmgn8vc4pb6f69s9qn6s7rhnqv.apps.googleusercontent.com";
+            var url = "https://localhost:44357/dang-nhap-google";
+            var repsone = GoogleAuth.GetAuthUrl(clientId, url);
+            ViewBag.repsone = repsone;
+
             return View();
         }
 
@@ -22,6 +51,120 @@ namespace QuanLyShopBanVali.Controllers
         {
             return View();
         }
+
+        //Login Facebook
+        //private Uri RedirectUri
+        //{
+        //    get
+        //    {
+        //        var uriBuilder = new UriBuilder(Request.Url);
+        //        uriBuilder.Query = null;
+        //        uriBuilder.Fragment = null;
+        //        uriBuilder.Path = Url.Action("FacebookRedirect");
+        //        return uriBuilder.Uri;
+        //    }
+        //}
+
+        //public ActionResult LoginFacebook()
+        //{
+        //    var fb = new facebookclient();
+        //    var loginurl = fb.getloginurl(new
+        //    {
+        //        client_id = configurationmanager.appsettings["fbappid"],
+        //        client_secret = configurationmanager.appsettings["fbappsecret"],
+        //        redirect_uri = redirecturi.absoluteuri,
+        //        respone_type = "code",
+        //        scope = "public_profile,email",
+        //    });
+
+        //    return redirect(loginurl.absoluteuri);
+        //}
+
+        public ActionResult FacebookRedirect(string code, TaiKhoan taiKhoan, KhachHang khachHang)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = "25155442967434663",
+                client_secret = "dfb968e202308c4ca44f70d70ef48321",
+                redirect_uri = "https://localhost:44357/FacebookRedirect",
+                code = code
+            });
+
+            fb.AccessToken = result.access_token;
+
+            dynamic me = fb.Get("me?fields=name,email");
+            string name = me.name;
+            string email = me.email;
+
+            ViewBag.UserName = name;
+            ViewBag.Email = email;
+
+            string customerID;
+            do
+            {
+                customerID = GenerateRandomCustomerID();
+            }
+            while (db.KhachHangs.Any(p => p.customer_id == customerID));
+
+            if (ModelState.IsValid)
+            {
+                taiKhoan.account_name = email;
+                taiKhoan.account_password = null;
+                taiKhoan.account_createAt = null;
+                taiKhoan.account_status = true;
+
+                khachHang.customer_name = name;
+                khachHang.customer_id = customerID;
+                khachHang.customer_phone = null;
+                khachHang.customer_address = null;
+
+                db.TaiKhoans.Add(taiKhoan);
+                db.SaveChanges();
+
+                khachHang.customer_account = taiKhoan.account_name;
+                db.KhachHangs.Add(khachHang);
+                db.SaveChanges();
+
+                Session["UserName"] = name;
+                Session["isCustomer"] = "isCustomer";
+                Console.WriteLine(name);
+
+                
+            }
+
+            // Chuyển hướng đến trang chính
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<ActionResult> GoogleLoginCallBack(string code)
+        {
+            var clientId = "1032401930561-u8ubttlmgn8vc4pb6f69s9qn6s7rhnqv.apps.googleusercontent.com";
+            var url = "https://localhost:44357/dang-nhap-google";
+            var clientSecret = "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";
+            var token = await GoogleAuth.GetAuthAccessToken(code, clientId, clientSecret, url);
+            var userProfile = await GoogleAuth.GetProfileResponseAsync(token.AccessToken.ToString());
+
+            if (!string.IsNullOrEmpty(userProfile))
+            {
+                // Phân tích chuỗi JSON để truy cập thông tin
+                JObject userProfileJSon = JObject.Parse(userProfile);
+
+                // Truy cập thông tin từ đối tượng JSON
+                var name = (string)userProfileJSon["name"];
+                var email = (string)userProfileJSon["email"];
+
+                // In ra console log
+                Debug.WriteLine("Name: " + name);
+                Debug.WriteLine("Email: " + email);
+
+                Session["UserName"] = name;
+                Session["isCustomer"] = "isCustomer";
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
 
         [HttpPost]
         public ActionResult LoginSection(LoginInfo loginInfo)

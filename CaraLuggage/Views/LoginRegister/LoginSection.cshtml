@@ -38,7 +38,25 @@
             <input type="submit" class="input-submit" value="Đăng nhập">
         </div>
         <div class="register">
-            <span>Bạn chưa có tài khoản? <a href="@Url.Action("RegisterSection")">Đăng ký</a></span>
+            <span>Bạn chưa có tài khoản? <a href="@Url.Action("RegisterSection")" style="">Đăng ký</a></span>
+        </div>
+
+        <div class="register others">
+            <span class="line"></span>
+            <span>Hoặc có thể đăng nhập bằng</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="box">
+            <a href="@ViewBag.Url" class="box-login facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+                Facebook
+            </a>
+
+            <a target="_blank" href="@ViewBag.repsone" class="box-login google">
+                <i class="fa-brands fa-google-plus-g"></i>
+                Google
+            </a>
         </div>
     </div>
 }

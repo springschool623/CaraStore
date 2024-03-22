@@ -188,3 +188,43 @@ a:hover{
         padding: 7.5em 1.5em 4em 1.5em;
     }
 }
+
+.others{
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.box{
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-login {
+    padding: 20px 45px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.box-login i{
+    width: 12px;
+    padding-right: 20px;
+}
+
+.facebook {
+    background-color: #0866FF;
+}
+
+.google {
+    background-color: #DC4B39;
+}
+
+.line{
+    display: inline-block;
+    justify-items: center;
+    border: 1px solid white;
+    width: 80px;
+    height: 0;
+}
