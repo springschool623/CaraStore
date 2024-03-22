@@ -80,6 +80,7 @@ namespace QuanLyShopBanVali.Controllers
         //    return redirect(loginurl.absoluteuri);
         //}
 
+        //Lấy các thông tin Fb
         public ActionResult FacebookRedirect(string code, TaiKhoan taiKhoan, KhachHang khachHang)
         {
             var fb = new FacebookClient();
@@ -137,6 +138,7 @@ namespace QuanLyShopBanVali.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //Lấy các thông tin từ Google
         public async Task<ActionResult> GoogleLoginCallBack(string code)
         {
             var clientId = "1032401930561-u8ubttlmgn8vc4pb6f69s9qn6s7rhnqv.apps.googleusercontent.com";
