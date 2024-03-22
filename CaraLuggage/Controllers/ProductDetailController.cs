@@ -39,7 +39,7 @@ namespace QuanLyShopBanVali.Controllers
             ViewBag.BrandNames = brandNames;
 
             // Lấy danh sách sản phẩm
-            var relatedProduct = db.SanPhams.Where(p => p.product_brand == product.product_brand || p.product_category == product.product_category).ToList();
+            var relatedProduct = db.SanPhams.Where(p => p.product_brand == product.product_brand || p.product_category == product.product_category).Take(4).ToList();
 
             ViewBag.relatedProduct = relatedProduct;
 

@@ -413,3 +413,6 @@ E:\MVC-Web\CaraStore\CaraLuggage\obj\Debug\CaraLuggage.csproj.CopyComplete
 E:\MVC-Web\CaraStore\CaraLuggage\obj\Debug\CaraLuggage.dll
 E:\MVC-Web\CaraStore\CaraLuggage\obj\Debug\CaraLuggage.pdb
 E:\MVC-Web\CaraStore\CaraLuggage\obj\Debug\CaraLuggage.csproj.AssemblyReference.cache
+E:\MVC-Web\CaraStore\CaraLuggage\bin\Facebook.dll
+E:\MVC-Web\CaraStore\CaraLuggage\bin\GoogleAuthentication.dll
+E:\MVC-Web\CaraStore\CaraLuggage\bin\Facebook.xml

@@ -58,6 +58,7 @@
     <EntitySetMapping Name="MauSacs">
       <EntityTypeMapping TypeName="CaraLuggageDBModel.MauSac">
         <MappingFragment StoreEntitySet="MauSac">
+          <ScalarProperty Name="color_img" ColumnName="color_img" />
           <ScalarProperty Name="color_id" ColumnName="color_id" />
           <ScalarProperty Name="color_name" ColumnName="color_name" />
         </MappingFragment>
@@ -77,6 +78,7 @@
     <EntitySetMapping Name="PhuongThucThanhToans">
       <EntityTypeMapping TypeName="CaraLuggageDBModel.PhuongThucThanhToan">
         <MappingFragment StoreEntitySet="PhuongThucThanhToan">
+          <ScalarProperty Name="payment_logo" ColumnName="payment_logo" />
           <ScalarProperty Name="payment_no" ColumnName="payment_no" />
           <ScalarProperty Name="payment_name" ColumnName="payment_name" />
         </MappingFragment>

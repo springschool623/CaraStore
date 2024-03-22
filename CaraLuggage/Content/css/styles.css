@@ -1145,7 +1145,7 @@ input:checked + .radio-title label {
 #profile {
     display: flex;
     align-items: stretch;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     padding: 0 150px;
     margin: 0 auto;
 }

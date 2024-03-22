@@ -14,8 +14,8 @@
     <div class="profile-info">
         <h3>Thông tin tài khoản</h3>
         <ul class="pro-info">
-            <li><a class="active1" href="@Url.Action("UserProfile", "Home", new { accountName = Model.customer_account })">Thông tin cá nhân</a></li>
-            <li><a href="@Url.Action("UserOrder", "Home", new {  accountName = Model.customer_account  })">Đơn hàng</a></li>
+            <li><a class="active1" href="@Url.Action("UserProfile", "Home", new { cusID = Model.customer_id })">Thông tin cá nhân</a></li>
+            <li><a href="@Url.Action("UserOrder", "Home", new {  cusID = Model.customer_id  })">Đơn hàng</a></li>
         </ul>
     </div>
 

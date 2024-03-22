@@ -158,7 +158,7 @@ namespace QuanLyShopBanVali.Controllers
         }
 
         [HttpPost]
-        public ActionResult PayConfirm([Bind(Include = "order_no,order_code,order_createAt,order_staff,order_status,order_payment,order_totalPrice")] DonHang donHang,
+        public ActionResult PayForProductView([Bind(Include = "order_no,order_code,order_createAt,order_staff,order_status,order_payment,order_totalPrice")] DonHang donHang,
             [Bind(Include = "orderdetail_id,od_product,od_quantity,od_price,od_orderno")] ChiTietDonHang chiTietDonHang)
         {
             List<Cart> cartItems = Session["CartItems"] as List<Cart> ?? new List<Cart>();
