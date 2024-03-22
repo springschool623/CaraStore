@@ -101,38 +101,9 @@ namespace QuanLyShopBanVali.Controllers
             ViewBag.UserName = name;
             ViewBag.Email = email;
 
-            string customerID;
-            do
-            {
-                customerID = GenerateRandomCustomerID();
-            }
-            while (db.KhachHangs.Any(p => p.customer_id == customerID));
-
-            if (ModelState.IsValid)
-            {
-                taiKhoan.account_name = email;
-                taiKhoan.account_password = null;
-                taiKhoan.account_createAt = null;
-                taiKhoan.account_status = true;
-
-                khachHang.customer_name = name;
-                khachHang.customer_id = customerID;
-                khachHang.customer_phone = null;
-                khachHang.customer_address = null;
-
-                db.TaiKhoans.Add(taiKhoan);
-                db.SaveChanges();
-
-                khachHang.customer_account = taiKhoan.account_name;
-                db.KhachHangs.Add(khachHang);
-                db.SaveChanges();
-
-                Session["UserName"] = name;
-                Session["isCustomer"] = "isCustomer";
-                Console.WriteLine(name);
-
-                
-            }
+            Session["UserName"] = name;
+            Session["isCustomer"] = "isCustomer";
+            Console.WriteLine(name);
 
             // Chuyển hướng đến trang chính
             return RedirectToAction("Index", "Home");
