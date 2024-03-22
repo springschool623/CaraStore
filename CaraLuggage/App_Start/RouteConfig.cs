@@ -78,8 +78,8 @@ namespace CaraLuggage
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
                 name: "User Profile",
-                url: "thong-tin-khach-hang-{accountName}",
-                defaults: new { controller = "Home", action = "UserProfile", accountName = UrlParameter.Optional }
+                url: "thong-tin-khach-hang-{cusID}",
+                defaults: new { controller = "Home", action = "UserProfile", cusID = UrlParameter.Optional }
             );
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -112,6 +112,28 @@ namespace CaraLuggage
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
+                name: "LoginFacebook",
+                url: "dang-nhap-facebook",
+                defaults: new { controller = "LoginRegister", action = "LoginFacebook", id = UrlParameter.Optional }
+            );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "FacebookRedirect",
+                url: "FacebookRedirect",
+                defaults: new { controller = "LoginRegister", action = "FacebookRedirect", id = UrlParameter.Optional }
+            );
+
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "GoogleLoginCallBack",
+                url: "dang-nhap-google",
+                defaults: new { controller = "LoginRegister", action = "GoogleLoginCallBack", id = UrlParameter.Optional }
+            );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
                 name: "Add to Cart",
                 url: "them-san-pham-{productId}",
                 defaults: new { controller = "Cart", action = "AddToCart", productId = UrlParameter.Optional}
@@ -136,13 +158,6 @@ namespace CaraLuggage
                 name: "Order Success",
                 url: "thanh-toan-thanh-cong",
                 defaults: new { controller = "Cart", action = "OrderSuccess", id = UrlParameter.Optional }
-            );
-
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.MapRoute(
-                name: "PayConfirm",
-                url: "thanh-toan-thanh-cong",
-                defaults: new { controller = "Cart", action = "PayConfirm", id = UrlParameter.Optional }
             );
 
             //ADMIN SECTION:

@@ -45,7 +45,7 @@
         </tbody>
     </table>
 </section>
-@using (Html.BeginForm("PayConfirm", "Cart", FormMethod.Post))
+@using (Html.BeginForm("PayForProductView", "Cart", FormMethod.Post))
 {
     <section id="proceed" class="section-p1">
         <div class="tong-thanh-toan">
@@ -67,7 +67,7 @@
                 </table>
             </div>
 
-            <input type="submit" class="normal" style="margin: 10px 0; padding: 18px 32px; border-radius: 5px; text-align: center; text-decoration: none; font-size: 25px; background-color: #8DDFEB; color: white; border: none; font-weight:600" value="Thanh toán"/>
+            <input type="submit" class="normal" style="margin: 10px 0; padding: 18px 32px; border-radius: 5px; text-align: center; text-decoration: none; font-size: 25px; background-color: #8DDFEB; color: white; border: none; cursor: pointer;font-weight:600" value="Thanh toán"/>
         </div>
 
         <div id="payment">

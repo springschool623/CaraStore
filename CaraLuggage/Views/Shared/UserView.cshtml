@@ -12,7 +12,7 @@
 </head>
 <body class="dark-mode" id="dark">
     @{
-        string sessionUser = Session["UserName"] as string;
+        string sessionCus = Session["CusID"] as string;
     }
 
     <section id="header">
@@ -28,14 +28,14 @@
                 <li><a href="@Url.Action("About", "Home")">Về chúng tôi</a></li>
                 <li><a href="@Url.Action("Contact", "Home")">Liên hệ</a></li>
 
-                @if (sessionUser.IsEmpty())
+                @if (sessionCus.IsEmpty())
                 {
                     <li><a href="@Url.Action("LoginSection", "LoginRegister")">Đăng nhập</a></li>
                     <li><a href="@Url.Action("RegisterSection", "LoginRegister")">Đăng ký</a></li>
                 }
                 else
                 {
-                    <li><a href="@Url.Action("UserProfile", "Home", new { accountName = sessionUser })"><i class="fa-solid fa-circle-user"></i></a></li>
+                    <li><a href="@Url.Action("UserProfile", "Home", new { cusID = sessionCus })"><i class="fa-solid fa-circle-user"></i></a></li>
                 }
                 <li><a href="@Url.Action("Index", "Cart")"><i class="fa-solid fa-basket-shopping"></i></i></a></li>
                 <li><a href="#" id="mode-switch"><i class="fa-solid fa-sun"></i></a></li>

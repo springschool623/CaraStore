@@ -29,11 +29,11 @@
           <Property Name="order_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="order_code" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="order_createAt" Type="datetime" />
+          <Property Name="order_totalPrice" Type="float" />
           <Property Name="order_customer" Type="varchar" MaxLength="15" />
           <Property Name="order_staff" Type="varchar" MaxLength="15" />
           <Property Name="order_status" Type="nvarchar" MaxLength="20" />
           <Property Name="order_payment" Type="int" />
-          <Property Name="order_totalPrice" Type="float" />
           <Property Name="order_modifiedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="KhachHang">
@@ -44,7 +44,7 @@
           <Property Name="customer_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="customer_phone" Type="char" MaxLength="12" />
           <Property Name="customer_address" Type="nvarchar" MaxLength="50" />
-          <Property Name="customer_account" Type="varchar" MaxLength="20" />
+          <Property Name="customer_account" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="LoaiSanPham">
           <Key>
@@ -60,6 +60,7 @@
           </Key>
           <Property Name="color_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="color_name" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="color_img" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -69,7 +70,7 @@
           <Property Name="staff_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="staff_phone" Type="char" MaxLength="12" />
           <Property Name="staff_address" Type="nvarchar" MaxLength="50" />
-          <Property Name="staff_account" Type="varchar" MaxLength="20" />
+          <Property Name="staff_account" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="PhuongThucThanhToan">
           <Key>
@@ -77,6 +78,7 @@
           </Key>
           <Property Name="payment_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="payment_name" Type="varchar" MaxLength="20" />
+          <Property Name="payment_logo" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="SanPham">
           <Key>
@@ -100,7 +102,7 @@
           <Key>
             <PropertyRef Name="account_name" />
           </Key>
-          <Property Name="account_name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="account_name" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="account_password" Type="varchar" MaxLength="20" />
           <Property Name="account_createAt" Type="datetime" />
           <Property Name="account_status" Type="bit" />
@@ -352,7 +354,7 @@
           <Property Name="customer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="customer_phone" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
           <Property Name="customer_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="customer_account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="customer_account" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DonHangs" Relationship="Self.FK__DonHang__order_c__5165187F" FromRole="KhachHang" ToRole="DonHang" />
           <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__KhachHang__custo__5070F446" FromRole="KhachHang" ToRole="TaiKhoan" />
         </EntityType>
@@ -372,6 +374,7 @@
           <Property Name="color_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="color_name" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="SanPhams" Relationship="Self.FK__SanPham__product__4D94879B" FromRole="MauSac" ToRole="SanPham" />
+          <Property Name="color_img" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -381,7 +384,7 @@
           <Property Name="staff_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="staff_phone" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
           <Property Name="staff_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="staff_account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="staff_account" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DonHangs" Relationship="Self.FK__DonHang__order_s__52593CB8" FromRole="NhanVien" ToRole="DonHang" />
           <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__NhanVien__staff___4F7CD00D" FromRole="NhanVien" ToRole="TaiKhoan" />
         </EntityType>
@@ -392,6 +395,7 @@
           <Property Name="payment_no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="payment_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DonHangs" Relationship="Self.FK__DonHang__order_p__534D60F1" FromRole="PhuongThucThanhToan" ToRole="DonHang" />
+          <Property Name="payment_logo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SanPham">
           <Key>
@@ -420,7 +424,7 @@
           <Key>
             <PropertyRef Name="account_name" />
           </Key>
-          <Property Name="account_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="account_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="account_password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="account_createAt" Type="DateTime" Precision="3" />
           <Property Name="account_status" Type="Boolean" />
@@ -688,6 +692,7 @@
           <EntitySetMapping Name="MauSacs">
             <EntityTypeMapping TypeName="CaraLuggageDBModel.MauSac">
               <MappingFragment StoreEntitySet="MauSac">
+                <ScalarProperty Name="color_img" ColumnName="color_img" />
                 <ScalarProperty Name="color_id" ColumnName="color_id" />
                 <ScalarProperty Name="color_name" ColumnName="color_name" />
               </MappingFragment>
@@ -707,6 +712,7 @@
           <EntitySetMapping Name="PhuongThucThanhToans">
             <EntityTypeMapping TypeName="CaraLuggageDBModel.PhuongThucThanhToan">
               <MappingFragment StoreEntitySet="PhuongThucThanhToan">
+                <ScalarProperty Name="payment_logo" ColumnName="payment_logo" />
                 <ScalarProperty Name="payment_no" ColumnName="payment_no" />
                 <ScalarProperty Name="payment_name" ColumnName="payment_name" />
               </MappingFragment>

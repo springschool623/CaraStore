@@ -18,7 +18,7 @@ namespace QuanLyShopBanVali.Controllers
         {
             var newArrivals = db.SanPhams
                                 .OrderByDescending(p => p.product_createAt)
-                                .Take(1)
+                                .Take(4)
                                 .ToList();
             var sanPhams = db.SanPhams.Include(s => s.ChatLieu).Include(s => s.LoaiSanPham).Include(s => s.MauSac).Include(s => s.ThuongHieu);
 
@@ -84,22 +84,22 @@ namespace QuanLyShopBanVali.Controllers
             return View("Shop", sanPhams);
         }
 
-        public ActionResult UserOrder(string accountName)
+        public ActionResult UserOrder(string cusID)
         {
-            if (accountName == null)
+            if (cusID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            TaiKhoan taiKhoan = db.TaiKhoans.Find(accountName);
-            if (taiKhoan == null)
+            KhachHang khachHang = db.KhachHangs.Find(cusID);
+            if (khachHang == null)
             {
                 return HttpNotFound();
             }
 
-            KhachHang khachHang = db.KhachHangs.FirstOrDefault(k => k.customer_account == taiKhoan.account_name);
+            TaiKhoan taiKhoan = db.TaiKhoans.FirstOrDefault(k => k.account_name == khachHang.customer_account);
 
-            if (khachHang == null)
+            if (taiKhoan == null)
             {
                 return HttpNotFound();
             }
@@ -115,22 +115,22 @@ namespace QuanLyShopBanVali.Controllers
            
         }
 
-        public ActionResult UserProfile(string accountName)
+        public ActionResult UserProfile(string cusID)
         {
-            if (accountName == null)
+            if (cusID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            TaiKhoan taiKhoan = db.TaiKhoans.Find(accountName);
-            if (taiKhoan == null)
+            KhachHang khachHang = db.KhachHangs.Find(cusID);
+            if (khachHang == null)
             {
                 return HttpNotFound();
             }
 
-            KhachHang khachHang = db.KhachHangs.FirstOrDefault(k => k.customer_account == taiKhoan.account_name);
+            TaiKhoan taiKhoan = db.TaiKhoans.FirstOrDefault(k => k.account_name == khachHang.customer_account);
 
-            if (khachHang == null)
+            if (taiKhoan == null)
             {
                 return HttpNotFound();
             }

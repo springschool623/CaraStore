@@ -5,7 +5,7 @@
 }
 
 @{
-    string sessionUser = Session["UserName"] as string;
+    string sessionCus = Session["CusID"] as string;
 }
 
 <section id="page-header" class="about-header10">
@@ -17,8 +17,8 @@
     <div class="profile-info">
         <h3>Thông tin tài khoản</h3>
         <ul class="pro-info">
-            <li><a href="@Url.Action("UserProfile", "Home", new { accountName = sessionUser })">Thông tin cá nhân</a></li>
-            <li><a class="active1" href="@Url.Action("UserOrder", new {  accountName = sessionUser  })">Đơn hàng</a></li>
+            <li><a href="@Url.Action("UserProfile", "Home", new { cusID = sessionCus })">Thông tin cá nhân</a></li>
+            <li><a class="active1" href="@Url.Action("UserOrder", new {  cusID = sessionCus  })">Đơn hàng</a></li>
         </ul>
     </div>
 

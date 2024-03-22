@@ -46,7 +46,7 @@
     <Property Name="customer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="customer_phone" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
     <Property Name="customer_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="customer_account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="customer_account" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="DonHangs" Relationship="Self.FK__DonHang__order_c__5165187F" FromRole="KhachHang" ToRole="DonHang" />
     <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__KhachHang__custo__5070F446" FromRole="KhachHang" ToRole="TaiKhoan" />
   </EntityType>
@@ -66,6 +66,7 @@
     <Property Name="color_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="color_name" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="SanPhams" Relationship="Self.FK__SanPham__product__4D94879B" FromRole="MauSac" ToRole="SanPham" />
+    <Property Name="color_img" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="NhanVien">
     <Key>
@@ -75,7 +76,7 @@
     <Property Name="staff_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="staff_phone" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
     <Property Name="staff_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="staff_account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="staff_account" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="DonHangs" Relationship="Self.FK__DonHang__order_s__52593CB8" FromRole="NhanVien" ToRole="DonHang" />
     <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__NhanVien__staff___4F7CD00D" FromRole="NhanVien" ToRole="TaiKhoan" />
   </EntityType>
@@ -86,6 +87,7 @@
     <Property Name="payment_no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="payment_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="DonHangs" Relationship="Self.FK__DonHang__order_p__534D60F1" FromRole="PhuongThucThanhToan" ToRole="DonHang" />
+    <Property Name="payment_logo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="SanPham">
     <Key>
@@ -114,7 +116,7 @@
     <Key>
       <PropertyRef Name="account_name" />
     </Key>
-    <Property Name="account_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="account_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="account_password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="account_createAt" Type="DateTime" Precision="3" />
     <Property Name="account_status" Type="Boolean" />

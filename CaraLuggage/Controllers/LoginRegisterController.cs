@@ -1,10 +1,19 @@
 ﻿using CaraLuggage.Controllers.ProxyPattern;
 using CaraLuggage.Models;
+using Facebook;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Security.Cryptography.Pkcs;
 using System.Web;
 using System.Web.Mvc;
+using GoogleAuthentication.Services;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace QuanLyShopBanVali.Controllers
 {
@@ -15,8 +24,28 @@ namespace QuanLyShopBanVali.Controllers
         // GET: LoginRegister
         public ActionResult LoginSection()
         {
+            //Login Facebook
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = "25155442967434663",
+                client_secret = "dfb968e202308c4ca44f70d70ef48321",
+                redirect_uri = "https://localhost:44357/FacebookRedirect",
+                respone_type = "code",
+                scope = "public_profile,email",
+            });
+            ViewBag.Url = loginUrl;
+
+
+            //Login Google
+            var clientId = "1032401930561-u8ubttlmgn8vc4pb6f69s9qn6s7rhnqv.apps.googleusercontent.com";
+            var url = "https://localhost:44357/dang-nhap-google";
+            var repsone = GoogleAuth.GetAuthUrl(clientId, url);
+            ViewBag.repsone = repsone;
+
             return View();
         }
+
 
         public ActionResult RegisterSection()
         {
@@ -34,6 +63,11 @@ namespace QuanLyShopBanVali.Controllers
                 {
                     // Set the "UserCode" session variable to the user code
                     Session["UserName"] = loginInfo.UserName;
+
+                    KhachHang khachHang = db.KhachHangs.FirstOrDefault(c => c.customer_account == loginInfo.UserName);
+
+                    Session["CusID"] = khachHang.customer_id;
+
                     Session["isCustomer"] = "isCustomer";
 
                     return RedirectToAction("Index", "Home");
@@ -132,6 +166,158 @@ namespace QuanLyShopBanVali.Controllers
 
             return RedirectToAction("Index", "Home", khachHang);
         }
+
+        //Lấy các thông tin Fb
+        public ActionResult FacebookRedirect(string code, TaiKhoan taiKhoan, KhachHang khachHang)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = "25155442967434663",
+                client_secret = "dfb968e202308c4ca44f70d70ef48321",
+                redirect_uri = "https://localhost:44357/FacebookRedirect",
+                code = code
+            });
+
+            fb.AccessToken = result.access_token;
+
+            dynamic me = fb.Get("me?fields=name,email");
+            string name = me.name;
+            string email = me.email;
+
+            ViewBag.UserName = name;
+            ViewBag.Email = email;
+
+            string newCustomerID;
+
+            do
+            {
+                newCustomerID = GenerateRandomCustomerID();
+            }
+
+            while (db.KhachHangs.Any(p => p.customer_id == newCustomerID));
+
+            taiKhoan.account_name = email;
+
+            KhachHang checkCus = db.KhachHangs.FirstOrDefault(c => c.customer_account == email);
+
+            if (checkCus != null)
+            {
+                KhachHang existedCus = db.KhachHangs.FirstOrDefault(k => k.customer_id == checkCus.customer_id);
+
+                if (existedCus == null)
+                {
+                    khachHang.customer_id = newCustomerID;
+
+                    khachHang.customer_name = name;
+
+                    khachHang.customer_account = email;
+
+                    db.KhachHangs.Add(khachHang);
+                    db.TaiKhoans.Add(taiKhoan);
+                    db.SaveChanges();
+                    Session["CusID"] = khachHang.customer_id;
+                }
+
+                Session["CusID"] = existedCus.customer_id;
+                Session["isCustomer"] = "isCustomer";
+            }
+
+            else
+            {
+                khachHang.customer_id = newCustomerID;
+
+                khachHang.customer_name = name;
+
+                khachHang.customer_account = email;
+
+                db.KhachHangs.Add(khachHang);
+                db.TaiKhoans.Add(taiKhoan);
+                db.SaveChanges();
+                Session["CusID"] = khachHang.customer_id;
+                Session["isCustomer"] = "isCustomer";
+            }
+
+            // Chuyển hướng đến trang chính
+            return RedirectToAction("Index", "Home");
+        }
+
+        //Lấy các thông tin từ Google
+        public async Task<ActionResult> GoogleLoginCallBack(string code, TaiKhoan taiKhoan, KhachHang khachHang)
+        {
+            var clientId = "1032401930561-u8ubttlmgn8vc4pb6f69s9qn6s7rhnqv.apps.googleusercontent.com";
+            var url = "https://localhost:44357/dang-nhap-google";
+            var clientSecret = "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";
+            var token = await GoogleAuth.GetAuthAccessToken(code, clientId, clientSecret, url);
+            var userProfile = await GoogleAuth.GetProfileResponseAsync(token.AccessToken.ToString());
+
+            if (!string.IsNullOrEmpty(userProfile))
+            {
+                // Phân tích chuỗi JSON để truy cập thông tin
+                JObject userProfileJSon = JObject.Parse(userProfile);
+
+                // Truy cập thông tin từ đối tượng JSON
+                var name = (string)userProfileJSon["name"];
+                var email = (string)userProfileJSon["email"];
+
+                // In ra console log
+                Debug.WriteLine("Name: " + name);
+                Debug.WriteLine("Email: " + email);
+
+                string newCustomerID;
+
+                do
+                {
+                    newCustomerID = GenerateRandomCustomerID();
+                }
+
+                while (db.KhachHangs.Any(p => p.customer_id == newCustomerID));
+
+                taiKhoan.account_name = email;
+
+                KhachHang checkCus = db.KhachHangs.FirstOrDefault(c => c.customer_account == email);
+
+                if (checkCus != null)
+                {
+                    KhachHang existedCus = db.KhachHangs.FirstOrDefault(k => k.customer_id == checkCus.customer_id);
+
+                    if (existedCus == null)
+                    {
+                        khachHang.customer_id = newCustomerID;
+
+                        khachHang.customer_name = name;
+
+                        khachHang.customer_account = email;
+
+                        db.KhachHangs.Add(khachHang);
+                        db.TaiKhoans.Add(taiKhoan);
+                        db.SaveChanges();
+                        Session["CusID"] = khachHang.customer_id;
+                    }
+
+                    Session["CusID"] = existedCus.customer_id;
+                    Session["isCustomer"] = "isCustomer";
+                }
+
+                else
+                {
+                    khachHang.customer_id = newCustomerID;
+
+                    khachHang.customer_name = name;
+
+                    khachHang.customer_account = email;
+
+                    db.KhachHangs.Add(khachHang);
+                    db.TaiKhoans.Add(taiKhoan);
+                    db.SaveChanges();
+                    Session["CusID"] = khachHang.customer_id;
+                    Session["isCustomer"] = "isCustomer";
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
 
         public ActionResult Logout()
         {

@@ -26,7 +26,10 @@ namespace CaraLuggage.Models
 
         [Display(Name = "Tên phương thức")]
         public string payment_name { get; set; }
-    
+
+        [Display(Name = "Logo phương thức")]
+        public string payment_logo { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }
     }
