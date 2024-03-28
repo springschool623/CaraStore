@@ -401,6 +401,13 @@ namespace CaraLuggage
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
+                name: "Export Orders",
+                url: "xuat-danh-sach-don-hang-{id}",
+                defaults: new { controller = "Orders", action = "ExportOrders", id = UrlParameter.Optional }
+            );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
                 name: "Accounts",
                 url: "admin-danh-sach-tai-khoan",
                 defaults: new { controller = "Accounts", action = "Index", id = UrlParameter.Optional }
