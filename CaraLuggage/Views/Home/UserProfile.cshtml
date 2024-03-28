@@ -1,8 +1,16 @@
 ﻿@model CaraLuggage.Models.KhachHang
 
 @{
-    ViewBag.Title = "UserProfile";
+    ViewBag.Title = "Thông tin khách hàng";
     Layout = "~/Views/Shared/UserView.cshtml";
+}
+
+@{ 
+    bool isLoginFB_GG = false; // Khởi tạo giá trị mặc định
+    if (Session["LoginFB_GG"] != null)
+    {
+        isLoginFB_GG = (bool)Session["LoginFB_GG"]; // Ép kiểu dữ liệu
+    }
 }
 
 <section id="page-header" class="about-header10">
@@ -16,12 +24,13 @@
         <ul class="pro-info">
             <li><a class="active1" href="@Url.Action("UserProfile", "Home", new { cusID = Model.customer_id })">Thông tin cá nhân</a></li>
             <li><a href="@Url.Action("UserOrder", "Home", new {  cusID = Model.customer_id  })">Đơn hàng</a></li>
+            <li><a href="@Url.Action("Logout", "LoginRegister")">Đăng xuất</a></li>
         </ul>
     </div>
 
     <div class="profile-details">
         <div id="pro-edit">
-            @using (Html.BeginForm("Edit", "Customers", FormMethod.Post))
+            @using (Html.BeginForm("Edit", "Customers", new { id = Model.customer_id }, FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.customer_id)
@@ -44,13 +53,22 @@
                     <label for="">Địa chỉ</label>
                     @Html.EditorFor(model => model.customer_address, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
+
+                if (isLoginFB_GG == true)
+                {
+                    <div class="diachi-pro">
+                        <label for="">Email</label>
+                        @Html.EditorFor(model => model.TaiKhoan.account_name, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    </div>
+                }
                 <button class="normal" type="submit">Lưu thay đổi</button>
             }
         </div>
-
-            @using (Html.BeginForm("Edit", "Accounts", FormMethod.Post))
+        @if (isLoginFB_GG == false)
+        {
+            using (Html.BeginForm("Edit", "Accounts", new { id = Model.customer_id }, FormMethod.Post))
             {
-                 @Html.AntiForgeryToken()
+                @Html.AntiForgeryToken()
                 <div>
                     <h3>Đổi mật khẩu</h3>
                     <div class="pass-pro">
@@ -68,5 +86,7 @@
                     <button class="normal" type="submit">Lưu thay đổi</button>
                 </div>
             }
+        }
+
     </div>
 </section>

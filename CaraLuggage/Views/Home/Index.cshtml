@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CaraLuggage.Models.SanPham>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Trang chủ";
     Layout = "~/Views/Shared/UserView.cshtml";
 }
 @using CaraLuggage.Controllers.DecoratorPattern;
@@ -47,8 +47,10 @@
 <section class="dark-mode section-p1" id="products1">
     <h2>Sản phẩm nổi bật</h2>
     <p>Nơi có nhiều mặc hàng nổi bật được đánh giá cao</p>
+
+
     <div class="pro-container">
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.topSellingProducts)
         {
             SalesOff sales = new SalesOff(item.product_id);
             SalesOffDecorator s = new BlackFridaySalesDecorator(sales);

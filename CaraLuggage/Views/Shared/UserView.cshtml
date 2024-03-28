@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>@ViewBag.Title</title>
 
     <link href="~/Content/css/styles.css" rel="stylesheet" />
     <link href="~/Content/css/darkmode.css" rel="stylesheet" />
@@ -13,13 +13,14 @@
 <body class="dark-mode" id="dark">
     @{
         string sessionCus = Session["CusID"] as string;
+        string cart = Session["Cart"] as string;
     }
 
     <section id="header">
         <a href="@Url.Action("Index", "Home")">
             <img src="~/Content/assets/img/logo.png" class="logo" alt="" id="logo-mode">
         </a>
-
+        <p>@cart</p>
         <div>
             <ul class="dark-mode" id="navbar">
                 <li><a class="active" href="@Url.Action("Index", "Home")">Trang chủ</a></li>
@@ -78,7 +79,7 @@
 
         <div class="col">
             <h4>Về chúng tôi</h4>
-            <a href="#">Về chúng tô</a>
+            <a href="#">Về chúng tôi</a>
             <a href="#">Thông tin vận chuyển</a>
             <a href="#">Chính sách riêng tư</a>
             <a href="#">Điều khoản và Điều kiện</a>
@@ -94,19 +95,13 @@
             <a href="#">Trợ giúp</a>
         </div>
 
-        <div class="col install">
-            <h4>Tải ứng dụng</h4>
-            <p>Từ App Store và Google Play</p>
-            <div class="row">
-                <img src="~/Content/assets/img/pay/app.jpg" alt="">
-                <img src="~/Content/assets/img/pay/play.jpg" alt="">
-            </div>
+        <div class="col install">           
             <p>Cổng thanh toán</p>
             <img src="~/Content/assets/img/pay/paynobg.png" alt="">
         </div>
 
         <div class="copyright">
-            <p>© 2021, Tech2 etc - HTML CSS Ecommerce Template</p>
+            <p>© Nhóm 9 - Mẫu Thiết Kế Phần Mềm 2024</p>
         </div>
     </footer>
 

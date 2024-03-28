@@ -70,7 +70,7 @@ namespace CaraLuggage.Controllers.AdminController
                     return RedirectToAction("Index", "Home");
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Accounts");
             }
             return View(taiKhoan);
         }

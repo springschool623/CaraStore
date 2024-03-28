@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CaraLuggage.Models.DonHang>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý đơn hàng (Admin)";
     Layout = "~/Views/Shared/AdminView.cshtml";
 }
 <style>
@@ -51,6 +51,9 @@
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.order_createAt)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.order_modifiedAt)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.order_payment)
