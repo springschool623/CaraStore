@@ -543,7 +543,7 @@
     <Content Include="Views\Cart\PayForProductView.cshtml" />
     <Content Include="Views\Cart\OrderSuccess.cshtml" />
     <Content Include="Views\Home\UserOrderDetail.cshtml" />
-    <Content Include="Template\OrderVisitor.xlsx" />
+    <Content Include="Template\VisitorOrder.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
