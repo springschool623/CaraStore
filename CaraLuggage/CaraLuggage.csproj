@@ -145,6 +145,11 @@
     <Compile Include="Controllers\AdminController\ProductsController.cs" />
     <Compile Include="Controllers\AdminController\StaffsController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CommandPattern\AddToCartCommand.cs" />
+    <Compile Include="Controllers\CommandPattern\CartInvoker.cs" />
+    <Compile Include="Controllers\CommandPattern\CartReceiver.cs" />
+    <Compile Include="Controllers\CommandPattern\ICommand.cs" />
+    <Compile Include="Controllers\CommandPattern\RemoveFromCartCommand.cs" />
     <Compile Include="Controllers\DecoratorPattern\BlackFridaySalesDecorator.cs" />
     <Compile Include="Controllers\DecoratorPattern\ISalesOff.cs" />
     <Compile Include="Controllers\DecoratorPattern\SalesOff.cs" />
@@ -156,6 +161,11 @@
     <Compile Include="Controllers\ProxyPattern\ILogin.cs" />
     <Compile Include="Controllers\ProxyPattern\LoginProxy.cs" />
     <Compile Include="Controllers\ProxyPattern\LoginService.cs" />
+    <Compile Include="Controllers\Singleton\SocialAuthService.cs" />
+    <Compile Include="Controllers\StatePattern\ConfirmedState.cs" />
+    <Compile Include="Controllers\StatePattern\DeliveryState.cs" />
+    <Compile Include="Controllers\StatePattern\NotConfirmState.cs" />
+    <Compile Include="Controllers\StatePattern\OrderState.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -210,6 +220,7 @@
     <Compile Include="Models\ThuongHieu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +278,7 @@
     <Content Include="Content\assets\admin-setup\js\plugins\bootstrap-switch.js" />
     <Content Include="Content\assets\admin-setup\js\plugins\chartist.min.js" />
     <Content Include="Content\assets\admin-setup\js\plugins\nouislider.min.js" />
+    <Content Include="Content\assets\icon\admin-3d-illustration-icon-png.png" />
     <Content Include="Content\assets\img\about\1.mp4" />
     <Content Include="Content\assets\img\about\a1.png" />
     <Content Include="Content\assets\img\about\a2.jpg" />
@@ -524,7 +536,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\LoginInfo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

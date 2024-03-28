@@ -1,4 +1,5 @@
-﻿using CaraLuggage.Controllers.DecoratorPattern;
+﻿using CaraLuggage.Controllers.CommandPattern;
+using CaraLuggage.Controllers.DecoratorPattern;
 using CaraLuggage.Models;
 using System;
 using System.Collections.Generic;
@@ -18,93 +19,6 @@ namespace QuanLyShopBanVali.Controllers
             List<Cart> cartItems = Session["CartItems"] as List<Cart> ?? new List<Cart>();
 
             return View(cartItems);
-        }
-
-        public ActionResult AddToCart(string productId)
-        {
-            // Check if the user is logged in (Session["Username"] is not null)
-            if (Session["Username"] != null)
-            {
-                SanPham sanPham = db.SanPhams.Find(productId);
-
-                if (sanPham.product_quantity == 0)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    // Retrieve cart items from session
-                    List<Cart> cartItems = Session["CartItems"] as List<Cart> ?? new List<Cart>();
-
-                    // Check if the product is already in the cart
-                    Cart existingItem = cartItems.FirstOrDefault(item => item.productID == productId);
-
-                    if (existingItem != null)
-                    {
-                        // If the product is already in the cart, increment the quantity
-                        existingItem.productQuantity += 1;
-                    }
-                    else
-                    {
-
-                        // If the product is not in the cart, add a new cart item
-                        Cart cartItem = new Cart(sanPham.product_id, sanPham.product_name, (double)sanPham.product_price, 1, sanPham.product_image);
-                        cartItems.Add(cartItem);
-                    }
-
-                    // Save the updated cart items to session
-                    Session["CartItems"] = cartItems;
-
-                    // Calculate the total price
-                    double total = cartItems.Sum(item => item.productPrice * item.productQuantity);
-
-                    // Pass the total to the view
-                    ViewBag.Total = total;
-
-                    // Return a view to display the total
-                    return View("Index", cartItems);
-                }
-            }
-            else
-            {
-                // Redirect to a login page or show a message indicating that the user needs to log in.
-                return RedirectToAction("LoginSection", "LoginRegister"); // Change the action and controller names accordingly.
-            }
-        }
-
-        public ActionResult RemoveFromCart(string productId)
-        {
-            // Retrieve cart items from session
-            List<Cart> cartItems = Session["CartItems"] as List<Cart> ?? new List<Cart>();
-
-            // Find the item to be removed
-            Cart itemToRemove = cartItems.FirstOrDefault(item => item.productID == productId);
-
-            if (itemToRemove != null)
-            {
-                // If the quantity is greater than 1, decrement the quantity
-                if (itemToRemove.productQuantity > 1)
-                {
-                    itemToRemove.productQuantity -= 1;
-                }
-                else
-                {
-                    // If the quantity is 1 or less, remove the item from the cart
-                    cartItems.Remove(itemToRemove);
-                }
-
-                // Save the updated cart items to session
-                Session["CartItems"] = cartItems;
-            }
-
-            // Calculate the total price
-            double total = cartItems.Sum(item => item.productPrice * item.productQuantity);
-
-            // Pass the total to the view
-            ViewBag.Total = total;
-
-            // Return a view to display the total
-            return View("Index", cartItems);
         }
 
         public ActionResult TotalCart()
@@ -161,7 +75,6 @@ namespace QuanLyShopBanVali.Controllers
         public ActionResult PayForProductView([Bind(Include = "order_no,order_code,order_createAt,order_staff,order_status,order_payment,order_totalPrice")] DonHang donHang,
             [Bind(Include = "orderdetail_id,od_product,od_quantity,od_price,od_orderno")] ChiTietDonHang chiTietDonHang)
         {
-            List<Cart> cartItems = Session["CartItems"] as List<Cart> ?? new List<Cart>();
 
             string accessUser = Session["UserName"] as string;
 
@@ -169,6 +82,9 @@ namespace QuanLyShopBanVali.Controllers
             {
                 return RedirectToAction("LoginSection", "LoginRegister");
             }
+
+            List<Cart> cartItems = Session["CartItems"] as List<Cart> ?? new List<Cart>();
+
             KhachHang khachHang = db.KhachHangs.FirstOrDefault(c => c.customer_account == accessUser);
             donHang.order_customer = khachHang.customer_id;
             string newOrderCode;
@@ -254,5 +170,50 @@ namespace QuanLyShopBanVali.Controllers
             return code;
         }
 
+        public ActionResult AddToCart(string productId)
+        {
+            // Check if the user is logged in (Session["Username"] is not null)
+            if (Session["Username"] != null)
+            {
+                // The client code can parameterize an invoker with any commands.
+                CartInvoker invoker = new CartInvoker();
+                CartReceiver receiver = new CartReceiver();
+
+                invoker.SetOnStart(new AddToCartCommand(receiver, productId));
+                invoker.ExecuteCommand();
+
+                List<Cart> cartItems = Session["CartItems"] as List<Cart>;
+
+                return View("Index", cartItems);
+            }
+            else
+            {
+                // Redirect to a login page or show a message indicating that the user needs to log in.
+                return RedirectToAction("LoginSection", "LoginRegister"); // Change the action and controller names accordingly.
+            }
+           
+        }
+
+        public ActionResult RemoveFromCart(string productId)
+        {
+            if (Session["Username"] != null)
+            {
+                // The client code can parameterize an invoker with any commands.
+                CartInvoker invoker = new CartInvoker();
+                CartReceiver receiver = new CartReceiver();
+
+                invoker.SetOnStart(new RemoveFromCartCommand(receiver, productId));
+                invoker.ExecuteCommand();
+
+                List<Cart> cartItems = Session["CartItems"] as List<Cart>;
+
+                return View("Index", cartItems);
+            }
+            else
+            {
+                // Redirect to a login page or show a message indicating that the user needs to log in.
+                return RedirectToAction("LoginSection", "LoginRegister"); // Change the action and controller names accordingly.
+            }
+        }
     }
 }

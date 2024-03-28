@@ -35,6 +35,34 @@ namespace CaraLuggage
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
+                name: "PriceSortingHighToLow",
+                url: "danh-sach-san-pham-cao-den-thap",
+                defaults: new { controller = "Home", action = "PriceSortingHighToLow", id = UrlParameter.Optional }
+            );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "PriceSortingLowToHigh",
+                url: "danh-sach-san-pham-thap-den-cao",
+                defaults: new { controller = "Home", action = "PriceSortingLowToHigh", id = UrlParameter.Optional }
+            );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "AlphabetSortingAToZ",
+                url: "danh-sach-san-pham-a-den-z",
+                defaults: new { controller = "Home", action = "AlphabetSortingAToZ", id = UrlParameter.Optional }
+            );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "AlphabetSortingZToA",
+                url: "danh-sach-san-pham-z-den-a",
+                defaults: new { controller = "Home", action = "AlphabetSortingZToA", id = UrlParameter.Optional }
+            );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
                 name: "Product Detail",
                 url: "chi-tiet-san-pham-{id}",
                 defaults: new { controller = "ProductDetail", action = "Index", id = UrlParameter.Optional }
@@ -137,6 +165,13 @@ namespace CaraLuggage
                 name: "Add to Cart",
                 url: "them-san-pham-{productId}",
                 defaults: new { controller = "Cart", action = "AddToCart", productId = UrlParameter.Optional}
+            );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "Remove from Cart",
+                url: "xoa-khoi-gio-hang-{productId}",
+                defaults: new { controller = "Cart", action = "RemoveFromCart", productId = UrlParameter.Optional }
             );
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

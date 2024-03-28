@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CaraLuggage.Controllers.StatePattern;
 using CaraLuggage.Models;
 
 namespace CaraLuggage.Controllers.AdminController
@@ -102,6 +103,23 @@ namespace CaraLuggage.Controllers.AdminController
                 string currentAccount = Session["UserName"] as string;
                 var nhanVien = db.NhanViens.FirstOrDefault(s => s.staff_account == currentAccount);
                 db.Entry(donHang).State = EntityState.Modified;
+
+                // Xác định trạng thái hiện tại của đơn hàng
+                if (donHang.order_status == "Chưa xác nhận")
+                {
+                    donHang.changeState(new NotConfirmState());
+                }
+                else if (donHang.order_status == "Đã xác nhận")
+                {
+                    donHang.changeState(new ConfirmedState());
+                }
+                else if (donHang.order_status == "Đang giao hàng")
+                {
+                    donHang.changeState(new DeliveryState());
+                }
+
+                // Xử lý đơn hàng dựa trên trạng thái hiện tại
+                donHang.ProcessOrder(donHang);
 
                 donHang.order_modifiedAt = DateTime.Now;
                 donHang.order_staff = nhanVien.staff_id;

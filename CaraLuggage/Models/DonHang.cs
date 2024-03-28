@@ -9,16 +9,30 @@
 
 namespace CaraLuggage.Models
 {
+    using CaraLuggage.Controllers.StatePattern;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public partial class DonHang
     {
+        private OrderState currentState;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DonHang()
         {
             this.ChiTietDonHangs = new HashSet<ChiTietDonHang>();
+            currentState = new NotConfirmState(); 
+        }
+
+        public void changeState(OrderState state)
+        {
+            currentState = state;
+        }
+
+        public void ProcessOrder(DonHang donHang)
+        {
+            currentState.ProcessOrder(donHang);
         }
 
         [Display(Name = "Số thứ tự")]

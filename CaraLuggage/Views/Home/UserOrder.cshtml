@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<CaraLuggage.Models.DonHang>
 @{
-    ViewBag.Title = "UserOrder";
+    ViewBag.Title = "Danh sách đơn (Khách hàng)";
     Layout = "~/Views/Shared/UserView.cshtml";
 }
 
@@ -19,6 +19,7 @@
         <ul class="pro-info">
             <li><a href="@Url.Action("UserProfile", "Home", new { cusID = sessionCus })">Thông tin cá nhân</a></li>
             <li><a class="active1" href="@Url.Action("UserOrder", new {  cusID = sessionCus  })">Đơn hàng</a></li>
+            <li><a href="@Url.Action("Logout", "LoginRegister")">Đăng xuất</a></li>
         </ul>
     </div>
 

@@ -20,8 +20,27 @@ namespace QuanLyShopBanVali.Controllers
                                 .OrderByDescending(p => p.product_createAt)
                                 .Take(4)
                                 .ToList();
-            var sanPhams = db.SanPhams.Include(s => s.ChatLieu).Include(s => s.LoaiSanPham).Include(s => s.MauSac).Include(s => s.ThuongHieu);
 
+            // Lấy các mặt hàng có tổng số lượng bán nhiều nhất
+            var topSellingItems = db.ChiTietDonHangs
+                                    .GroupBy(d => d.od_product)
+                                    .Select(g => new {
+                                        od_product = g.Key,
+                                        TongSoLuongBan = g.Sum(d => d.od_quantity)
+                                    })
+                                    .OrderByDescending(g => g.TongSoLuongBan)
+                                    .Take(8) // Lấy 8 sản phẩm có tổng số lượng bán nhiều nhất
+                                    .ToList();
+
+            // Lấy ra danh sách các sản phẩm trong topSellingItems
+            var topSellingProducts = (from item in topSellingItems
+                                      join product in db.SanPhams
+                                      on item.od_product equals product.product_id
+                                      select product).ToList();
+
+            var sanPhams = db.SanPhams.Include(s => s.ChatLieu).Include(s => s.LoaiSanPham).Include(s => s.MauSac).Include(s => s.ThuongHieu).Take(12);
+
+            ViewBag.topSellingProducts = topSellingProducts;
             ViewBag.newArrival = newArrivals;
             return View(sanPhams.ToList());
         }
@@ -45,41 +64,127 @@ namespace QuanLyShopBanVali.Controllers
             return View();
         }
 
-        public ActionResult Shop()
+        public ActionResult Shop(int? page)
         {
-            var sanPhams = db.SanPhams.Include(s => s.ChatLieu).Include(s => s.LoaiSanPham).Include(s => s.MauSac).Include(s => s.ThuongHieu);
-            return View(sanPhams.ToList());
+            int pageSize = 8; // Number of items per page
+            int pageNumber = (page ?? 1);
+
+            var sanPhams = db.SanPhams
+                            .Include(s => s.ChatLieu)
+                            .Include(s => s.LoaiSanPham)
+                            .Include(s => s.MauSac)
+                            .Include(s => s.ThuongHieu)
+                            .OrderByDescending(s => s.product_createAt)
+                            .Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+
+            int totalItems = db.SanPhams.Count();
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            ViewBag.PageNumber = pageNumber;
+
+            return View(sanPhams);
         }
 
-        public ActionResult PriceSortingHighToLow()
+        public ActionResult PriceSortingHighToLow(int? page)
         {
+            int pageSize = 8; // Number of items per page
+            int pageNumber = (page ?? 1);
+
             // Lấy danh sách sản phẩm và sắp xếp theo giá từ cao đến thấp
-            var sanPhams = db.SanPhams.OrderByDescending(s => s.product_price).ToList();
+            var sanPhams = db.SanPhams
+                            .Include(s => s.ChatLieu)
+                            .Include(s => s.LoaiSanPham)
+                            .Include(s => s.MauSac)
+                            .Include(s => s.ThuongHieu)
+                            .OrderByDescending(s => s.product_price)
+                            .Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+
+            int totalItems = db.SanPhams.Count();
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            ViewBag.PageNumber = pageNumber;
+
+            Session["Sorting"] = "High to Low";
 
             return View("Shop", sanPhams);
         }
 
-        public ActionResult PriceSortingLowToHigh()
+        public ActionResult PriceSortingLowToHigh(int? page)
         {
+            int pageSize = 8; // Number of items per page
+            int pageNumber = (page ?? 1);
+
             // Lấy danh sách sản phẩm và sắp xếp theo giá từ cao đến thấp
-            var sanPhams = db.SanPhams.OrderBy(s => s.product_price).ToList();
+            var sanPhams = db.SanPhams
+                            .Include(s => s.ChatLieu)
+                            .Include(s => s.LoaiSanPham)
+                            .Include(s => s.MauSac)
+                            .Include(s => s.ThuongHieu)
+                            .OrderBy(s => s.product_price)
+                            .Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+
+            int totalItems = db.SanPhams.Count();
+
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            ViewBag.PageNumber = pageNumber;
+
+            Session["Sorting"] = "Low to High";
 
             return View("Shop", sanPhams);
         }
 
-        public ActionResult AlphabetSortingAToZ()
+        public ActionResult AlphabetSortingAToZ(int? page)
         {
+            int pageSize = 8; // Number of items per page
+            int pageNumber = (page ?? 1);
+
             // Lấy danh sách sản phẩm và sắp xếp theo giá từ cao đến thấp
-            var sanPhams = db.SanPhams.OrderBy(s => s.product_name).ToList();
+            var sanPhams = db.SanPhams
+                            .Include(s => s.ChatLieu)
+                            .Include(s => s.LoaiSanPham)
+                            .Include(s => s.MauSac)
+                            .Include(s => s.ThuongHieu)
+                            .OrderBy(s => s.product_name)
+                            .Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+
+            int totalItems = db.SanPhams.Count();
+
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            ViewBag.PageNumber = pageNumber;
+
+            Session["Sorting"] = "A to Z"; 
 
             return View("Shop", sanPhams);
         }
 
-        public ActionResult AlphabetSortingZToA()
+        public ActionResult AlphabetSortingZToA(int? page)
         {
-            // Lấy danh sách sản phẩm và sắp xếp theo giá từ cao đến thấp
-            var sanPhams = db.SanPhams.OrderByDescending(s => s.product_name).ToList();
+            int pageSize = 8; // Number of items per page
+            int pageNumber = (page ?? 1);
 
+            // Lấy danh sách sản phẩm và sắp xếp theo giá từ cao đến thấp
+            var sanPhams = db.SanPhams
+                            .Include(s => s.ChatLieu)
+                            .Include(s => s.LoaiSanPham)
+                            .Include(s => s.MauSac)
+                            .Include(s => s.ThuongHieu)
+                            .OrderByDescending(s => s.product_name)
+                            .Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+
+            int totalItems = db.SanPhams.Count();
+
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            ViewBag.PageNumber = pageNumber;
+
+            Session["Sorting"] = "Z to A";
 
             return View("Shop", sanPhams);
         }
