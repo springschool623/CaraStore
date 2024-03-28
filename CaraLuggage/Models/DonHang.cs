@@ -10,11 +10,12 @@
 namespace CaraLuggage.Models
 {
     using CaraLuggage.Controllers.StatePattern;
+    using CaraLuggage.Controllers.Visitor;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class DonHang
+    public partial class DonHang : IDonHang
     {
         private OrderState currentState;
 
@@ -68,5 +69,10 @@ namespace CaraLuggage.Models
         public virtual KhachHang KhachHang { get; set; }
         public virtual PhuongThucThanhToan PhuongThucThanhToan { get; set; }
         public virtual NhanVien NhanVien { get; set; }
+
+        public void Accept()
+        {
+
+        }
     }
 }

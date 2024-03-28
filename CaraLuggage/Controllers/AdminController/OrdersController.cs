@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CaraLuggage.Controllers.StatePattern;
+using CaraLuggage.Controllers.Visitor;
 using CaraLuggage.Models;
 
 namespace CaraLuggage.Controllers.AdminController
@@ -20,6 +21,19 @@ namespace CaraLuggage.Controllers.AdminController
         {
             var donHangs = db.DonHangs.Include(d => d.KhachHang).Include(d => d.PhuongThucThanhToan).Include(d => d.NhanVien);
             return View(donHangs.ToList());
+        }
+
+        public ActionResult ExportOrders(int id)
+        {
+            ExportExcelVisitor visitor = new ExportExcelVisitor();
+
+            var donHangs = db.DonHangs.FirstOrDefault(s => s.order_no == id);
+
+            visitor.VisitDonHang(donHangs);
+
+            visitor.SaveToExcel();
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Orders/Details/5
